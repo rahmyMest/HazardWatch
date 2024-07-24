@@ -4,8 +4,12 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 import router from './router'
+import dotenv from 'dotenv';
+
+
+dotenv.config();
 
 // create express app
 const app = express();
@@ -29,13 +33,15 @@ server.listen(8080, () =>{
 });
 
 // connect to a db
-const MONGO_URL = 'mongodb+srv://ghanahazardreporter:pf9uY1YOcIGRcLCp@cluster0.w3fk9tn.mongodb.net/hazardreporter-api?retryWrites=true&w=majority&appName=Cluster0'
+
 
 
 
 mongoose.Promise = Promise;
-mongoose.connect(MONGO_URL)
-console.log('Database is connected');
+mongoose.connect(process.env.MONGO_URL)
+.then(() => console.log('Database is connected'))
+.catch((error: Error) => console.log('Database connection error:', error));
+
 
 mongoose.connection.on('error', (error: Error) => console.log(error));
 app.use('/', router());
