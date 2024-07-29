@@ -1,4 +1,4 @@
-// src/pages/login.tsx
+
 import React, { useState } from 'react';
 
 const Login: React.FC = () => {
@@ -7,7 +7,7 @@ const Login: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
+   
     console.log('Username/Email:', usernameOrEmail);
     console.log('Password:', password);
   };
