@@ -1,15 +1,14 @@
-
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Login: React.FC = () => {
-  const [usernameOrEmail, setUsernameOrEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [usernameOrEmail, setUsernameOrEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-   
-    console.log('Username/Email:', usernameOrEmail);
-    console.log('Password:', password);
+
+    console.log("Username/Email:", usernameOrEmail);
+    console.log("Password:", password);
   };
 
   return (
@@ -18,7 +17,10 @@ const Login: React.FC = () => {
         <h2 className="text-2xl font-bold text-center">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="usernameOrEmail" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="usernameOrEmail"
+              className="block text-sm font-medium text-gray-700"
+            >
               Username or Email
             </label>
             <input
@@ -32,7 +34,10 @@ const Login: React.FC = () => {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
