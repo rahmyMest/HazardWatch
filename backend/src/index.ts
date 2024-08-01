@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose'
 import logging from './config/logging'
 import userRoutes from './router/user'
+import hazardRoutes from './router/hazardtypes'
 import dotenv from 'dotenv';
 import config from './config/config'
 
@@ -59,11 +60,23 @@ router.use((req, res, next) => {
 
 
 // Use Route
+
+router.use('/users',userRoutes)
+router.use('/hazard',hazardRoutes)
+
 router.use('/api', userRoutes)
+
 
 // Error handling for not found routes
 router.use((req, res, next) =>{
    const error = new Error('Not found');
+
+})
+
+const httpServer = http.createServer(router);
+
+httpServer.listen(config.server.port, () => logging.info(NAMESPACE, `Server is running ${config.server.hostname}:${config.server.port}`));
+
    return res.status(404).json({message: error.message});
 });
 
@@ -75,7 +88,5 @@ router.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-const httpServer = http.createServer(router);
 
-httpServer.listen(config.server.port, () => logging.info(NAMESPACE, `Server is running on ${config.server.hostname}:${config.server.port}`));
 
