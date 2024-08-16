@@ -1,15 +1,20 @@
 import React, { useState } from "react";
-import logImage from '../assets/images/log.png';
+import logImage from "../assets/images/log.png";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     console.log("Username/Email:", usernameOrEmail);
     console.log("Password:", password);
+
+    navigate("/dashboard");
   };
 
   return (
@@ -66,10 +71,28 @@ const Login: React.FC = () => {
             >
               Log In
             </button>
+            <div className="flex items-center justify-between">
+              <Link
+                to="/password-recovery"
+                className="text-sm text-blue-700 hover:underline"
+              >
+                Forgot your password?
+              </Link>
+              <Link
+                to="/signup"
+                className="text-sm text-blue-700 hover:underline"
+              >
+                Sign Up
+              </Link>
+            </div>
           </form>
         </div>
         <div className="hidden md:block md:w-1/2">
-          <img src={logImage} alt="Log" className="object-cover w-full h-full rounded-r-lg" />
+          <img
+            src={logImage}
+            alt="Log"
+            className="object-cover w-full h-full rounded-r-lg"
+          />
         </div>
       </div>
     </div>

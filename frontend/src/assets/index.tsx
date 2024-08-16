@@ -1,3 +1,5 @@
-import signupImg from './images/signupImg.png';
+import signUpImg from "./images/signupImg.png";
 
-export { signupImg }
+export const assets = {
+  signUpImg,
+};
