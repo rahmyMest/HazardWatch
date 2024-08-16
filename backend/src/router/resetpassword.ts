@@ -1,13 +1,12 @@
-import express from 'express';
-import { forgotPassword, resetPassword, verifyResetToken } from "../controllers/auth";
+import express from "express";
+import controller from "../controllers/auth";
 
+const router = express.Router();
 
+router.post("/forgot-password", controller.forgotPassword);
 
-export const forgotPasswordRouter = express.Router();
+router.get("/reset-token/:id", controller.verifyResetToken);
 
+router.post("/reset-password", controller.resetPassword);
 
-forgotPasswordRouter.post('/users/forgot-password', forgotPassword);
-
-forgotPasswordRouter.get('/users/reset-token/:id', verifyResetToken);
-
-forgotPasswordRouter.post('/users/reset-password', resetPassword);
+export default router;
