@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import { FormEvent, useState } from "react";
 
-export default function HazardForm({ onAddHazard }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function HazardForm({ onAddHazard }: { onAddHazard: any }) {
   const [title, setTitle] = useState("");
   const [images, setImages] = useState([]);
   const [location, setLocation] = useState("");
   const [hazardType, setHazardType] = useState("environmental");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const newHazard = { title, images, location, hazardType };
     onAddHazard(newHazard);
@@ -33,7 +34,6 @@ export default function HazardForm({ onAddHazard }) {
         type="file"
         multiple
         className="border border-gray-300 p-2 w-full mb-4"
-        onChange={(e) => setImages([...e.target.files])}
       />
 
       <label className="block mb-2">Location</label>

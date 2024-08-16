@@ -1,4 +1,3 @@
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { Hazard } from "../data/hazard";
 import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
 

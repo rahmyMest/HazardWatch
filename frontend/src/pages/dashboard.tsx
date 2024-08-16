@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { dummyHazards } from "../data/dummyData";
 import { Hazard } from "../data/hazard";
 import HazardForm from "../components/HazardForm";
