@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import logImage from "../assets/images/log.png";
 import { Link, useNavigate } from "react-router-dom";
-import { apiLogin } from "./services/auth";
+import { apiLogin } from "../services/auth";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { apiAdminLogi } from "../../../admin-dashboard/src/services/auth";
+
 
 const Login: React.FC = () => {
   const [userName, setUserName] = useState<string>("");

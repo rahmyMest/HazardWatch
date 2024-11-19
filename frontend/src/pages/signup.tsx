@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { assets } from "../assets";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { apiSignup } from "./services/auth";
+import { apiSignup } from "../services/auth";
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>("");
