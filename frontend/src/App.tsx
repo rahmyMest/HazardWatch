@@ -13,14 +13,13 @@ import Map from "./components/Map";
 
 
 
-
-
 export default function App() {
   
   return (
     <Router>
       <div className="App">
         <Routes>
+          <Route path="/hazardreport" element={<HazardReport/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/password-recovery" element={<PasswordRecovery />} />
