@@ -1,6 +1,5 @@
-import { Autocomplete } from '@react-google-maps/api';
-import ReactGoogleAutocomplete from 'react-google-autocomplete';
-import { mapApiKey } from '../pages/services/config';
+import ReactGoogleAutocomplete from "react-google-autocomplete";
+import { mapApiKey } from "../services/config";
 
 const CoordinatesAndLocation = () => {
   return (
@@ -22,6 +21,6 @@ const CoordinatesAndLocation = () => {
       />
     </div>
   );
-}
+};
 
 export default CoordinatesAndLocation;

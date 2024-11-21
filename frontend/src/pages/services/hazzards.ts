@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { apiClient } from "./config";
+import { apiClient } from "../../services/config";
 
 export const apiPostHazzardReport = async (
   payload: object
