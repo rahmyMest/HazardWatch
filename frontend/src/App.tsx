@@ -9,33 +9,28 @@ import FrontEndLayout from "./layouts/FrontEndLayout";
 import Overview from "./components/Overview";
 import Settings from "./components/Settings";
 import Map from "./components/Map";
-
-
-
+import HazardReport from "./components/HazardReport";
 
 export default function App() {
-  
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/hazardreport" element={<HazardReport/>} />
+          <Route path="/hazardreport" element={<HazardReport />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/password-recovery" element={<PasswordRecovery />} />
           <Route path="/" element={<Login />} />
           <Route path="/map" element={<MapPage />} />
-          <Route
-            path="/hazard-form" element={<HazardForm />} />
+          <Route path="/hazard-form" element={<HazardForm />} />
           <Route path="/dashboard" element={<FrontEndLayout />}>
-            <Route path="home" element={<DashboardPage/>} />
-            <Route path="map" element={<Map/>} />
+            <Route path="home" element={<DashboardPage />} />
+            <Route path="map" element={<Map />} />
             <Route path="overview" element={<Overview />} />
             <Route path="overview" element={<Overview />} />
             <Route path="overview" element={<Overview />} />
             <Route path="overview" element={<Overview />} />
             <Route path="settings" element={<Settings />} />
-           
           </Route>
         </Routes>
       </div>
