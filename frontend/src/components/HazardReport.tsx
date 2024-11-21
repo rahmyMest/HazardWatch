@@ -1,7 +1,7 @@
 import { CiHeart } from "react-icons/ci";
 import { FaRegCommentDots } from "react-icons/fa6";
 import { CiShare2 } from "react-icons/ci";
-import { trending_posts } from ".."; 
+import { trending_posts } from "..";
 import { recent_posts } from "..";
 import { announcement } from "..";
 
@@ -18,9 +18,7 @@ const HazardReport = () => {
           </a>
         </div>
 
-        <div className="flex overflow-x-auto  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <TrendingPosts />
-        </div>
+        <TrendingPosts />
       </section>
 
       <div className="flex gap-6">
@@ -45,60 +43,58 @@ const HazardReport = () => {
 
 const TrendingPosts = () => {
   return (
-    <>
-    
-        {trending_posts.map((post) => (
-          <div
-            key={post.id}
-            className="w-[350px] bg-white p-4 border rounded-lg shadow-sm hover:shadow-md transition"
-          >
-            <div className="flex items-center mb-4">
-              <img
-                src={post.profileImage}
-                alt={post.name}
-                className="w-12 h-12 rounded-full mr-3"
-              />
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {post.name}
-                </h3>
-                <p className="text-sm text-gray-500">{post.time}</p>
-              </div>
-            </div>
+    <div className="w-[calc(100vw-320px)] overflow-x-scroll flex gap-6">
+      {trending_posts.map((post) => (
+        <div
+          key={post.id}
+          className="w-[350px] min-w-[350px] bg-white p-4 border rounded-lg shadow-sm hover:shadow-md transition"
+        >
+          <div className="flex items-center mb-4">
+            <img
+              src={post.profileImage}
+              alt={post.name}
+              className="w-12 h-12 rounded-full mr-3"
+            />
             <div>
-              <p className="text-gray-700 mb-4">{post.description}</p>
-              <div className="flex items-center gap-x-[1rem] overflow-y-hidden">
-                {post.postImage1 && (
-                  <img
-                    src={post.postImage1}
-                    alt={post.name}
-                    className="w-full h-48 object-cover rounded-lg mb-4"
-                  />
-                )}
-                {post.postImage2 && (
-                  <img
-                    src={post.postImage2}
-                    alt={post.name}
-                    className="w-full h-48 object-cover rounded-lg mb-4"
-                  />
-                )}
-              </div>
-            </div>
-            <div className="flex items-center justify-between text-gray-600">
-              <span className="flex items-center gap-2">
-                <CiHeart /> {post.likes}
-              </span>
-              <span className="flex items-center gap-2">
-                <FaRegCommentDots /> {post.comment}
-              </span>
-              <span className="flex items-center gap-2">
-                <CiShare2 /> {post.shares}
-              </span>
+              <h3 className="text-lg font-semibold text-gray-800">
+                {post.name}
+              </h3>
+              <p className="text-sm text-gray-500">{post.time}</p>
             </div>
           </div>
-        ))}
-     
-    </>
+          <div>
+            <p className="text-gray-700 mb-4">{post.description}</p>
+            <div className="flex items-center gap-x-[1rem] overflow-y-hidden">
+              {post.postImage1 && (
+                <img
+                  src={post.postImage1}
+                  alt={post.name}
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+              )}
+              {post.postImage2 && (
+                <img
+                  src={post.postImage2}
+                  alt={post.name}
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+              )}
+            </div>
+          </div>
+          <div className="flex items-center justify-between text-gray-600">
+            <span className="flex items-center gap-2">
+              <CiHeart /> {post.likes}
+            </span>
+            <span className="flex items-center gap-2">
+              <FaRegCommentDots /> {post.comment}
+            </span>
+            <span className="flex items-center gap-2">
+              <CiShare2 /> {post.shares}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
@@ -173,7 +169,7 @@ const Announcement = () => {
         <h2 className="text-xl font-bold text-gray-800">Announcement</h2>
       </div>
 
-      <div className="w-[400px] h-[280px]grid grid-cols-1 gap-6">
+      <div className="w-[400px] h-[280px] grid grid-cols-1 gap-6">
         {announcement.map((post) => (
           <div
             key={post.id}
