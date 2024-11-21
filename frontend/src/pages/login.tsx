@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { apiLogin } from "../services/auth";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ROUTES } from "../constants/routes";
 
 const Login: React.FC = () => {
   const [userName, setUserName] = useState<string>("");
@@ -23,7 +24,7 @@ const Login: React.FC = () => {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
         toast.success("Login Successful");
-        navigate("/dashboard/home");
+        navigate(`/${ROUTES.dashboard}`);
       }
     } catch (error) {
       toast.error("Error logging in. Please check your credentials.");

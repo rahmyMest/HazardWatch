@@ -1,10 +1,10 @@
-
 import { Link } from "react-router-dom";
 import dashboardIcon from "../assets/images/dashboardIcon.png";
 import mapIcon from "../assets/images/mapIcon.png";
 import avatarIcon from "../assets/images/avatarIcon.png";
 import bellIcon from "../assets/images/bellIcon.png";
 import messagesIcon from "../assets/images/messagesIcon.png";
+import { ROUTES } from "../constants/routes";
 
 const Navbar = () => {
   return (
@@ -15,7 +15,7 @@ const Navbar = () => {
         <div className="flex flex-1 justify-center items-center space-x-4">
           <div className="flex space-x-2 border justify-between items-center rounded-full w-[262px] h-[36px] bg-[#F2F2F2]">
             <Link
-              to="/dashboard/home"
+              to={`/${ROUTES.dashboard}`}
               className="flex items-center px-3 py-1 rounded-full text-gray-500 hover:text-black hover:bg-white space-x-2"
             >
               <img
@@ -66,4 +66,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
