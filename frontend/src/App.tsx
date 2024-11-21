@@ -3,7 +3,6 @@ import Login from "./pages/login";
 import SignUp from "./pages/signup";
 import PasswordRecovery from "./pages/passwordRecovery";
 import MapPage from "./pages/mapPage";
-import HazardForm from "./components/HazardForm";
 import FrontEndLayout from "./layouts/FrontEndLayout";
 import Overview from "./components/Overview";
 import Settings from "./components/Settings";
@@ -22,7 +21,6 @@ export default function App() {
           <Route path="/password-recovery" element={<PasswordRecovery />} />
           <Route path="/" element={<Login />} />
           <Route path="/map" element={<MapPage />} />
-          <Route path="/hazard-form" element={<HazardForm />} />
           <Route
             path="/co-ordinates-location"
             element={<CoordinatesAndLocation />}

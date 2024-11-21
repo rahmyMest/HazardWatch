@@ -5,7 +5,7 @@ const GOOGLE_MAP_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
 
 const containerStyle: React.CSSProperties = {
   width: '100%',
-  height: '400px'
+  height: '100%'
 };
 
 const center: google.maps.LatLngLiteral = {
@@ -21,7 +21,7 @@ const markers: { lat: number; lng: number; label: string }[] = [
 
 const Map: React.FC = () => {
   return (
-    <div className="relative w-full h-96 bg-gray-200">
+    <div className="relative w-full h-5/6 bg-gray-200">
       <LoadScript googleMapsApiKey={GOOGLE_MAP_API_KEY}>
         <GoogleMap
           mapContainerStyle={containerStyle}
