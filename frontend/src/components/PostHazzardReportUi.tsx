@@ -1,9 +1,5 @@
 import React, { FormEvent, useState } from "react";
 import profilePic from "../assets/images/postHazzardReportUi/profilePic.png";
-import imageIcon from "../assets/images/postHazzardReportUi/video-image-audio.png";
-import map from "../assets/images/postHazzardReportUi/map-and-location.png";
-import paperClip from "../assets/images/postHazzardReportUi/paperclip.png";
-import emotions from "../assets/images/postHazzardReportUi/emotions.png";
 import { apiPostHazzardReport } from "../pages/services/hazzards";
 import {
   Description,
@@ -13,6 +9,7 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import Swal from "sweetalert2";
+import { ASSETS } from "../assets/assets";
 
 const PostHazzardReportUi: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,23 +32,11 @@ const PostHazzardReportUi: React.FC = () => {
     }
   };
 
-
-
-   
-
   return (
-    <section
-      id="post-hazzard"
-      className="lg:w-[45vw] md:w-[45vw] w-[100vw] lg:h-[16vh] flex-grow bg-[#dddddd] mx-auto"
-    >
-      <div
-        id="alignment-container"
-        className="w-[90%] h-[100%] mx-auto flex justify-between py-[20px]"
-      >
-        <div
-          id="avatar-side"
-          className="lg:w-[7%] h-[100%] flex items-start justify-end"
-        >
+    <div className="lg:w-[45vw] md:w-[45vw] w-[100vw] lg:h-[16vh] flex-grow bg-white mx-auto">
+      <div className="w-[90%] h-[100%] mx-auto flex justify-between py-[20px]">
+        {/* Start Avatar Section */}
+        <div className="lg:w-[7%] h-[100%] flex items-start justify-end">
           <div className="w-[50px] h-[50px] rounded-[50px] overflow-hidden">
             <img
               src={profilePic}
@@ -60,12 +45,13 @@ const PostHazzardReportUi: React.FC = () => {
             />
           </div>
         </div>
+        {/* End Avatar Section */}
+
         <form
           onSubmit={handleSubmit}
-          id="post-side"
           className="w-[91%] h-[100%] flex flex-col gap-y-[1rem] justify-between"
         >
-          <div id="post-side-top" className="h-[47%] w-[100%] ">
+          <div className="h-[47%] w-[100%] ">
             <input
               type="text"
               className="lg:h-[100%] h-auto w-[100%] text-[1.2rem] px-[25px] rounded-[50px] bg-[#F2F2F2]"
@@ -74,25 +60,30 @@ const PostHazzardReportUi: React.FC = () => {
               onFocus={() => setIsOpen(true)}
             />
           </div>
-          <div
-            id="post-side-bottom"
-            className="h-[47%] w-[100%] flex lg:flex-row items-center lg:justify-between md:justify-between flex-col gap-y-[1rem]"
-          >
+          <div className="h-[47%] w-[100%] flex lg:flex-row items-center lg:justify-between md:justify-between flex-col gap-y-[1rem]">
             <div id="icons" className="flex gap-x-[1.5rem]">
               <img
-                src={imageIcon}
+                src={ASSETS.icons.imageIcon}
                 alt="image upload icon"
                 className="w-[25px]"
               />
-              <img src={map} alt="map icon" className="w-[25px]" />
               <img
-                src={paperClip}
+                src={ASSETS.icons.mapIcon}
+                alt="map icon"
+                className="w-[25px]"
+              />
+              <img
+                src={ASSETS.icons.paperClipIcon}
                 alt="attach file icon"
                 className="w-[25px]"
               />
-              <img src={emotions} alt="emotion icon" className="w-[25px]" />
+              <img
+                src={ASSETS.icons.smileyFaceIcon}
+                alt="emotion icon"
+                className="w-[25px]"
+              />
             </div>
-            <div id="btn">
+            <div>
               <button
                 type="submit"
                 className="py-[10px] px-[30px] rounded-[10px] bg-black text-white"
@@ -201,7 +192,7 @@ const PostHazzardReportUi: React.FC = () => {
           </div>
         </Dialog>
       </div>
-    </section>
+    </div>
   );
 };
 
