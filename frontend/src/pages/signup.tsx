@@ -36,7 +36,8 @@ const SignUp: React.FC = () => {
       navigate("/login");
     } catch (error) {
       const err = error as AxiosError;
-      toast.error(err.response?.data?.message ?? "An error occurred");
+      const errorMessage = (err.response?.data as { message: string })?.message ?? "An error occurred";
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

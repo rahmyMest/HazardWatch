@@ -23,9 +23,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src",
-    "../admin-dashboard/src/pages/AdminLogin.tsx",
-    "../admin-dashboard/src/services"
-  ]
+  "include": ["src"]
 }
