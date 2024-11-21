@@ -10,6 +10,8 @@ import Settings from "./components/Settings";
 import Map from "./components/Map";
 import { ROUTES } from "./constants/routes";
 import DashboardHomePage from "./pages/DashboardHomePage";
+import PostHazzardReportUi from "./components/PostHazzardReportUi";
+import CoordinatesAndLocation from "./components/CoordinatesAndLocation";
 
 export default function App() {
   return (
@@ -22,6 +24,11 @@ export default function App() {
           <Route path="/" element={<Login />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/hazard-form" element={<HazardForm />} />
+          <Route path="/post-hazzard" element={<PostHazzardReportUi />} />
+          <Route
+            path="/co-ordinates-location"
+            element={<CoordinatesAndLocation />}
+          />
           <Route path={`/${ROUTES.dashboard}`} element={<FrontEndLayout />}>
             <Route path="" element={<DashboardHomePage />} />
             <Route path="map" element={<Map />} />
