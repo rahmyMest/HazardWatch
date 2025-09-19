@@ -5,7 +5,7 @@ import { trending_posts } from "..";
 import { recent_posts } from "..";
 import { announcement } from "..";
 
-const HazardReport = () => {
+const   HazardReport = () => {
   return (
     <div className="container mx-auto p-6">
       <section className="mb-8">

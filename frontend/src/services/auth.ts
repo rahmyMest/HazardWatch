@@ -13,7 +13,3 @@ export const apiSignup = async (payload: {
   confirmPassword: string;
   userName: string;
 }) => apiClient.post("/api/users/register", payload);
-
-export const apiNewHazardReporter = async (payload: FormData) => {
-  return await apiClient.post("/hazard-report/create", payload);
-};
