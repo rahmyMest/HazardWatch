@@ -52,7 +52,8 @@ console.log('req.files:', req.files);
 
 const getAllHazardReports = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const hazardReports = await HazardReport.find();
+        const hazardReports = await HazardReport.find()
+        .populate('user', 'firstName lastName userName');;
 
         return res.status(200).json({
             message: 'All Hazard Reports retrieved successfully',
