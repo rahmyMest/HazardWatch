@@ -10,6 +10,10 @@ dayjs.extend(relativeTime);
 interface TrendingPostProps {
   hazard: HazardReport;
 }
+
+// Image variable here
+const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL || "";
+
 export default function TrendingPostCard({ hazard }: TrendingPostProps) {
   return (
     <>
@@ -22,7 +26,7 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
             <div className="flex items-center space-x-3">
               <img src="#" alt="avatar" className="w-12 h-12 rounded-full bg-red-300" />
               <div>
-                <p className="text-md font-semibold text-gray-800">King Emma</p>
+                <p className="text-md font-semibold text-gray-800">{hazard.user?.firstName ?? "Anonymous"} {hazard.user?.lastName}</p>
                 <p
                   className="text-sm text-gray-500"
                   title={dayjs(hazard.createdAt).format("MMM D, YYYY h:mm A")}
@@ -35,16 +39,16 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
           <div>
             <p className="text-gray-700 mb-4">{hazard.description}
             </p>
-            <div className="flex items-center gap-x-[1rem] overflow-y-hidden bg-red-400">
+            <div className="flex items-center gap-x-[1rem] overflow-y-hidden">
               {hazard.images && hazard.images.length > 0 ? (
                 <div className="flex gap-2">
                   {hazard.images.map((img, idx) => (
                     <img
-                      key={idx}
-                      src={`$ https://hazardwatch.onrender.com/${img}`} // prepend backend URL
-                      alt={`Hazard ${hazard.title} image ${idx + 1}`}
-                      className="w-full h-48 object-cover rounded-xl"
-                    />
+                    key={idx}
+                    src={`${baseUrl}/${img}`} // prepend backend URL
+                    alt={`Hazard ${hazard.title} image ${idx + 1}`}
+                    className="w-full h-48 object-cover rounded-xl mb-4"
+                  />
                   ))}
                 </div>
               ) : (
