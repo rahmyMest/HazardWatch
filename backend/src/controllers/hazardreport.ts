@@ -5,13 +5,19 @@ import User from '../models/user';
 import { hazardreportValidator } from '../validators/hazardreport';
 import { IHazardReport } from '../interfaces/hazardreport';
 
+
 const NAMESPACE = 'HazardReport';
 
 const createHazardReport = async (req: Request, res: Response, next: NextFunction) => {
     try {
+console.log('req.files:', req.files);
+        console.log('req.body before processing:', req.body)
+        
         const { error, value } = hazardreportValidator.validate({
             ...req.body,
-            images: (req.files as Express.Multer.File[] | undefined)?.map(file => file.filename) || []
+           images: (req.files as Express.Multer.File[] | undefined)
+  ?.filter(file => file && (file as any).filename && (file as any).path)
+  ?.map(file => (file as any).filename) || []
         });
 
         if (error) {
@@ -46,7 +52,8 @@ const createHazardReport = async (req: Request, res: Response, next: NextFunctio
 
 const getAllHazardReports = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const hazardReports = await HazardReport.find();
+        const hazardReports = await HazardReport.find()
+        .populate('user', 'firstName lastName userName');;
 
         return res.status(200).json({
             message: 'All Hazard Reports retrieved successfully',

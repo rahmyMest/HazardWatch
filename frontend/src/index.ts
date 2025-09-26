@@ -32,8 +32,7 @@ export type Announcement = {
   title: string
   date: string
   description: string;
-  profileImage: string;
-  
+  profileImage: string; 
   
 };
 

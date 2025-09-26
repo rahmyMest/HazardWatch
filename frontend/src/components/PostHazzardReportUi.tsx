@@ -9,7 +9,7 @@ import {
 } from "@headlessui/react";
 import { ASSETS } from "../assets/assets";
 import HazardForm from "./HazardForm";
-import SubmitButton from "./Submitbutton";
+import SubmitButton from "./SubmitButton";
 
 const PostHazzardReportUi: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);

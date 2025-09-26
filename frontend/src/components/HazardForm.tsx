@@ -1,12 +1,14 @@
 import Swal from "sweetalert2";
-import { apiNewHazardReporter } from "../services/auth";
+
 
 type HazardFormProps = {
   onSuccess: () => void;
 };
 
 import React from "react";
-import SubmitButton from "./Submitbutton";
+import { apiNewHazardReporter } from "../services/api";
+import SubmitButton from "./SubmitButton";
+
 
 export default function HazardForm(props: HazardFormProps) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
