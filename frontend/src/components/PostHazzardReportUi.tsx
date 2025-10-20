@@ -15,8 +15,9 @@ type PostHazzardReportUiProps = {
   onSuccess: () => void; // 👈 accept callback from parent
 };
 
-
-const PostHazzardReportUi: React.FC<PostHazzardReportUiProps> = ({ onSuccess }) => {
+const PostHazzardReportUi: React.FC<PostHazzardReportUiProps> = ({
+  onSuccess,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -80,27 +81,36 @@ const PostHazzardReportUi: React.FC<PostHazzardReportUiProps> = ({ onSuccess }) 
         onClose={() => setIsOpen(false)}
         className="relative z-50"
       >
-        {/* The backdrop, rendered as a fixed sibling to the panel container */}
-        <DialogBackdrop className="fixed inset-0 bg-black/50" />
+        {/* Backdrop */}
+        <DialogBackdrop className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
 
-        {/* Full-screen container to center the panel */}
-        <div className="fixed inset-0 flex w-[90%] mx-auto items-center justify-center p-4">
-          {/* The actual dialog panel  */}
-          <DialogPanel className=" flex flex-col gap-y-[1.5rem] space-y-4 bg-white p-12 rounded-[10px] w-[100%] max-w-3xl">
-            <div>
-              <DialogTitle className="text-[1.5rem] font-bold">
+        {/* Centered container */}
+        <div className="fixed inset-0 flex items-center justify-center p-4 sm:p-6">
+          <DialogPanel
+            className="
+        flex flex-col gap-y-4 bg-white rounded-2xl shadow-lg
+        w-full max-w-3xl sm:w-[90%] md:w-[80%] lg:w-[60%]
+        p-6 sm:p-8 md:p-10
+        overflow-y-auto max-h-[95vh]
+      "
+          >
+            {/* Header */}
+            <div className="space-y-2 text-center sm:text-left">
+              <DialogTitle className="text-xl sm:text-2xl font-bold text-gray-800">
                 Report Environmental Hazards
               </DialogTitle>
-              <Description className="text-[#9B9B9B]">
-                Submit report on pollution by providing details, photos, and <br />
-                location to help us track and address environmental concerns{" "}
+              <Description className="text-gray-500 text-sm sm:text-base leading-relaxed">
+                Submit a report on pollution by providing details, photos, and
+                location to help us track and address environmental concerns.
               </Description>
             </div>
-            <div className="w-[100%]">
+
+            {/* Form */}
+            <div className="w-full">
               <HazardForm
                 onSuccess={() => {
-                  setIsOpen(false); // close modal
-                  onSuccess();       // 👈 trigger re-fetch in parent
+                  setIsOpen(false); // Close modal
+                  onSuccess(); // Re-fetch hazards
                 }}
               />
             </div>

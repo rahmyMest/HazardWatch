@@ -33,22 +33,23 @@ export default function DashboardHomePage() {
 
   return (
     <>
-      <div className="container mx-auto space-y-10">
-        <div className="flex gap-x-3 ">
-          <div className=" bg-white rounded-md w-2/3">
+      <div className="container space-y-10">
+        <div className="w-[95%] mx-auto">
+        <div className="flex gap-x-3 my-4 md:my-6">
+          <div className=" bg-white rounded-md md:w-2/3 w-full shadow-sm">
             <PostHazzardReportUi onSuccess={fetchHazards} />
           </div>
         </div>
-        <section className="mb-8 ">
+        <section className="mb-8 hidden md:block">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-md font-bold text-gray-800">
+            <h2 className="text-xl font-bold text-gray-800">
               Trending Hazard Post ⚡
             </h2>
             <a href="#!" className="text-blue-600 font-medium hover:underline">
               View all
             </a>
           </div>
-          <div className="w-[calc(100vw-320px)] overflow-x-scroll flex gap-6">
+          <div className="w-[calc(100vw-255px)] overflow-x-scroll flex gap-6">
             {hazards.length > 0 &&
               hazards.map((hazard) => (
                 <TrendingPostCard key={hazard._id} hazard={hazard} />
@@ -80,6 +81,7 @@ export default function DashboardHomePage() {
           </section>
 
           {/* <Announcement /> */}
+        </div>
         </div>
       </div>
     </>

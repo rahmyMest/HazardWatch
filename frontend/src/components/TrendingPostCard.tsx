@@ -17,9 +17,8 @@ const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL || "";
 export default function TrendingPostCard({ hazard }: TrendingPostProps) {
   return (
     <>
-      <div className="h-full">
+      <div className="">
         <div
-          // key={post.id}
           className="w-[350px] min-w-[350px] bg-white p-4 border rounded-lg shadow-sm hover:shadow-md transition"
         >
           <div className="w-[90%]  mx-auto flex items-center mb-4">
