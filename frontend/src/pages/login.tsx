@@ -5,12 +5,13 @@ import { apiLogin } from "../services/auth";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ROUTES } from "../constants/routes";
+import { useAuth } from "../context/AuthContext";
 
 const Login: React.FC = () => {
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loggingIn, setLoggingIn] = useState<boolean>(false); // 👈 new state
-
+  const { setLogin } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,8 +21,8 @@ const Login: React.FC = () => {
     try {
       const response = await apiLogin({ userName, password });
 
-      if (response.status === 200 && response.data?.token) {
-        localStorage.setItem("token", response.data.token);
+      if (response.status === 200 && response.data?.token || response.data?.user) {
+        setLogin(response.data.token, response.data.user);
 
         toast.success("Login successful!", {
           position: "top-right",
@@ -29,7 +30,7 @@ const Login: React.FC = () => {
         });
 
         // slight delay so toast shows before redirect
-        setTimeout(() => navigate(`/${ROUTES.dashboard}`), 1000);
+        setTimeout(() => navigate(`${ROUTES.dashboard}`), 1000);
       } else {
         toast.error("Invalid credentials. Please try again.");
       }

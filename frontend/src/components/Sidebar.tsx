@@ -1,23 +1,33 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import overviewIcon from "../assets/images/overviewIcon.png";
 import homeIcon from "../assets/images/homeIcon.png";
 import mapIcon from "../assets/images/mapIcon.png";
 import SettingsIcon from "../assets/images/settingsIcon.png";
-import LogOutIcon from "../assets/images/logOutIcon.png";
+// import LogOutIcon from "../assets/images/logOutIcon.png";
 import { ROUTES } from "../constants/routes";
+import { useAuth } from "../context/AuthContext";
+import { LogIn, LogOut } from "lucide-react";
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
 
+  const { isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/"); // dashboard is the home
+  };
+
   const navItems = [
-    { to: `/${ROUTES.dashboard}`, icon: homeIcon, label: "Home" },
-    { to: "overview", icon: overviewIcon, label: "Overview" },
-    { to: "/dashboard/map", icon: mapIcon, label: "Map" },
+    { to: `${ROUTES.dashboard}`, icon: homeIcon, label: "Home" },
+    { to: "/overview", icon: overviewIcon, label: "Overview" },
+    { to: "/map", icon: mapIcon, label: "Map" },
   ];
 
   const bottomItems = [
-    { to: "settings", icon: SettingsIcon, label: "Settings" },
-    { to: "/login", icon: LogOutIcon, label: "Logout" },
+    { to: "/settings", icon: SettingsIcon, label: "Settings" },
+    // { to: "/login", icon: LogOutIcon, label: "Logout" },
   ];
 
   return (
@@ -66,6 +76,19 @@ const Sidebar: React.FC = () => {
                 <span>{item.label}</span>
               </Link>
             ))}
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="text-gray-700 flex items-center h-[35px] p-2 hover:bg-[#E8E8EA] rounded-[4px] gap-[6px] w-full"
+              >
+                <LogOut className="w-[20px] h-[20px]" />
+                Logout
+              </button>
+            ) : (
+              <div className="hidden">
+                
+              </div>
+            )}
           </div>
         </nav>
       </aside>
@@ -99,6 +122,23 @@ const Sidebar: React.FC = () => {
             </Link>
           );
         })}
+        {isLoggedIn ? ( 
+        <button
+          onClick={handleLogout}
+          className="text-gray-400 text-[10px] font-medium flex flex-col items-center hover:bg-[#E8E8EA] active:text-black"
+        >
+          <LogOut />
+          Logout
+        </button>
+         ) : (
+          <button
+          onClick={() => navigate("/login")}  
+          className="text-gray-400 text-[10px] font-medium flex flex-col items-center hover:bg-[#E8E8EA] active:text-black"
+        >
+          <LogIn />
+          Login
+        </button>
+         )}
       </nav>
     </>
   );

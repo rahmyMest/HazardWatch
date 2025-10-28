@@ -63,7 +63,7 @@ export default function RecentPostCard({ hazard }: RecentPostProps) {
             <FaRegCommentDots /> comment
           </span> */}
           <span className="flex items-center gap-2">
-            <CiShare2 /> shares
+            <CiShare2 /> share
           </span>
         </div>
       </div>
