@@ -1,9 +1,10 @@
-import { CiHeart, CiShare2 } from "react-icons/ci";
-import { FaRegCommentDots } from "react-icons/fa6";
+import { CiShare2 } from "react-icons/ci";
+// import { FaRegCommentDots } from "react-icons/fa6";
 
 import { HazardReport } from "../types/hazardreport";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { CircleArrowUp } from "lucide-react";
 
 dayjs.extend(relativeTime);
 
@@ -79,11 +80,11 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
           </div>
           <div className="flex items-center justify-between text-gray-600">
             <span className="flex items-center gap-2">
-              <CiHeart /> likes
+              <CircleArrowUp/> upvote
             </span>
-            <span className="flex items-center gap-2">
+            {/* <span className="flex items-center gap-2">
               <FaRegCommentDots /> comment
-            </span>
+            </span> */}
             <span className="flex items-center gap-2">
               <CiShare2 /> share
             </span>

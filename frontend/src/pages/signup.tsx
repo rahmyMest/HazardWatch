@@ -32,8 +32,14 @@ const SignUp: React.FC = () => {
         confirmPassword: confirmPassword,
         userName: userName,
       });
-      toast.success("Sign up Successful");
-      navigate("/login");
+      toast.success("Sign up Successful",
+        { position: "top-right",
+          autoClose: 1500,
+        }
+      );
+
+      // slight delay so toast shows before redirect
+      setTimeout(() => navigate("/login"), 1500);
     } catch (error) {
       const err = error as AxiosError;
       const errorMessage = (err.response?.data as { message: string })?.message ?? "An error occurred";
