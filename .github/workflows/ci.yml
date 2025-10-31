@@ -30,12 +30,12 @@ jobs:
       - name: Install dependencies
         working-directory: ./backend
         run: npm install
-      - name: Run Lint
-        working-directory: ./backend
-        run: npm run lint
       - name: Run Tests
         working-directory: ./backend
         run : npm run test
+      - name: Run Lint
+        working-directory: ./backend
+        run: npm run lint
       - name: Run build
         working-directory: ./backend
         run: npm run build
@@ -59,12 +59,12 @@ jobs:
       - name: Install dependencies
         working-directory: ./frontend
         run: npm install
-      - name: Run Lint
-        working-directory: ./frontend
-        run: npm run lint
       - name: Run Tests
         working-directory: ./frontend
         run : npm run test
+      - name: Run Lint
+        working-directory: ./frontend
+        run: npm run lint
       - name: Run build
         working-directory: ./frontend
         run: npm run build
