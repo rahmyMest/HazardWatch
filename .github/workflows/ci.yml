@@ -1,10 +1,12 @@
 name: CI
 
 on:
-  push:
-    branches: [ main, master ]
   pull_request:
-    branches: [ main, master ]
+    branches:
+      - main
+  
+  push:
+  workflow_dispatch:
 
 jobs:
   backend:
@@ -12,7 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18.x, 20.x, 22.x]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,16 +23,17 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix['node-version'] }}
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
+          cache-dependency-path: ./backend/package.json
 
       - name: Install dependencies
         working-directory: ./backend
-        run: |
-          npm install
-          npm run lint
-          npm run test
-
+        run: npm install
+      - name: Run Lint
+        run: npm run lint
+      - name: Run Tests
+        run : npm run test
       - name: Run build
         working-directory: ./backend
         run: npm run build
@@ -52,11 +56,11 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./frontend
-        run: |
-          npm install
-          npm run lint --if-present
-          npm run test --if-present
-
+        run: npm install
+      - name: Run Lint
+        run: npm run lint
+      - name: Run Tests
+        run : npm run test
       - name: Run build
         working-directory: ./frontend
         run: npm run build
