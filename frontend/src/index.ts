@@ -129,4 +129,19 @@ export const recent_posts: Recent_Post[] = [
         profileImage:"https://s3-alpha-sig.figma.com/img/546f/5cbb/afe818c15dedb2fcb5e2825a91f3ca96?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UuXnsPf1zwsXmzOZusx1jUM-34naA7G8yIMOIm9jYdj-W3z~SBmYKNksl6O1mxQRkzNBU37pEERv0VlB8sB7OSsyf1CStWDdMPrGUO30nq6xmFlEtFOn8gGecR~fUCi3SyrKu3AQ4MQtO3z87jYNIxsvluU~RWDOKFBHwvx~voTWlT9wlrH8eQDQH2gA8FSJ02zkTqR~bhthjPrsNZQRToSdd~hlEmUCd7-5Mc-ZSRswmjqavC0JK0LnQ-Oz4~~kaa-nR1Scmaan7zErnr96bFKrj6p5imCl02nnctJ7DyVzukI7kmJ0vHEB5gsYd5S4L4mY6IFJ4tHc7ZO-QxEzqQ__",
         
       },
+      { id:"3",
+        title: "title",
+        date: "Thursday 20 November 2024",
+        description: "Lorem ipsum dolor sit amet consectetur. Et aliquet ipsum ut amet sit interdum.",
+        profileImage:"https://s3-alpha-sig.figma.com/img/546f/5cbb/afe818c15dedb2fcb5e2825a91f3ca96?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UuXnsPf1zwsXmzOZusx1jUM-34naA7G8yIMOIm9jYdj-W3z~SBmYKNksl6O1mxQRkzNBU37pEERv0VlB8sB7OSsyf1CStWDdMPrGUO30nq6xmFlEtFOn8gGecR~fUCi3SyrKu3AQ4MQtO3z87jYNIxsvluU~RWDOKFBHwvx~voTWlT9wlrH8eQDQH2gA8FSJ02zkTqR~bhthjPrsNZQRToSdd~hlEmUCd7-5Mc-ZSRswmjqavC0JK0LnQ-Oz4~~kaa-nR1Scmaan7zErnr96bFKrj6p5imCl02nnctJ7DyVzukI7kmJ0vHEB5gsYd5S4L4mY6IFJ4tHc7ZO-QxEzqQ__",
+        
+      },
+      {
+       id:"4",
+        title: "title",
+        date: "Thursday 20 November 2024",
+        description: "Lorem ipsum dolor sit amet consectetur. Et aliquet ipsum ut amet sit interdum.",
+        profileImage:"https://s3-alpha-sig.figma.com/img/546f/5cbb/afe818c15dedb2fcb5e2825a91f3ca96?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UuXnsPf1zwsXmzOZusx1jUM-34naA7G8yIMOIm9jYdj-W3z~SBmYKNksl6O1mxQRkzNBU37pEERv0VlB8sB7OSsyf1CStWDdMPrGUO30nq6xmFlEtFOn8gGecR~fUCi3SyrKu3AQ4MQtO3z87jYNIxsvluU~RWDOKFBHwvx~voTWlT9wlrH8eQDQH2gA8FSJ02zkTqR~bhthjPrsNZQRToSdd~hlEmUCd7-5Mc-ZSRswmjqavC0JK0LnQ-Oz4~~kaa-nR1Scmaan7zErnr96bFKrj6p5imCl02nnctJ7DyVzukI7kmJ0vHEB5gsYd5S4L4mY6IFJ4tHc7ZO-QxEzqQ__",
+        
+      }
     ]
