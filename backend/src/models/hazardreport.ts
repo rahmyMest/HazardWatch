@@ -12,6 +12,8 @@ const hazardReportSchema: Schema = new Schema({
     country: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, ref: 'User', required:true },
     status: String,
+    upvotes: { type: Number, default: 0},
+    upvotedBy: [{ type: Schema.Types.ObjectId, ref: 'User'}],
     createdAt: Date,
     updatedAt: Date,
 }, {
