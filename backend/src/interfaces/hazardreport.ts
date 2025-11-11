@@ -10,4 +10,6 @@ export interface IHazardReport extends Document {
     city: String;
     country: String;
     user: Types.ObjectId;
+    upvotes: number;
+    upvotedBy: Types.ObjectId[];
 }

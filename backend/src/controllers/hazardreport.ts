@@ -192,4 +192,68 @@ const deleteHazardReport = async (req: Request, res: Response, next: NextFunctio
     }
 };
 
-export default { createHazardReport, updateHazardReport, getHazardReportById, getAllHazardReports, getUserHazardCount, deleteHazardReport };
+const upvoteHazardReport = async (req: Request, res: Response, next: NextFunction) => {
+    const hazardReportId = req.params.id;
+    try {
+        // Get user ID from JWT
+        const userId = res.locals.jwt?.id;
+
+        if (!userId) {
+            return res.status(401).json({ message: "Unauthorized: Please login to upvote" });
+        }
+
+        // Validate the ID format
+        if (!mongoose.Types.ObjectId.isValid(hazardReportId)) {
+            return res.status(400).json({ message: 'Invalid hazard report ID format' });
+        }
+
+        // Check if the hazard report exists
+        const hazardReport = await HazardReport.findById(hazardReportId).exec();
+
+        if (!hazardReport) {
+            return res.status(404).json({
+                message: 'Hazard Report not found'
+            });
+        }
+
+        // Check if user has already upvoted
+        const hasUpvoted = hazardReport.upvotedBy.some(
+            (id) => id.toString() === userId.toString()
+        );
+
+        if (hasUpvoted) {
+            return res.status(400).json({
+                message: 'You have already upvoted this hazard report',
+                upvotes: hazardReport.upvotes
+            });
+        }
+
+        // Add user to upvotedBy array and increment upvotes
+        const updatedHazardReport = await HazardReport.findByIdAndUpdate(
+            hazardReportId,
+            {
+                $inc: { upvotes: 1 },
+                $push: { upvotedBy: userId }
+            },
+            { new: true }
+        ).exec();
+
+        if (updatedHazardReport) {
+            return res.status(200).json({
+                message: 'Hazard Report upvoted successfully',
+                hazardReport: updatedHazardReport
+            });
+        } else {
+            return res.status(404).json({
+                message: 'Hazard Report not found'
+            });
+        }
+    } catch (error) {
+        console.error('Error upvoting hazard report:', error);
+        next(error);
+    }
+};
+
+
+
+export default { createHazardReport, updateHazardReport, getHazardReportById, getAllHazardReports, getUserHazardCount, deleteHazardReport, upvoteHazardReport };
