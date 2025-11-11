@@ -52,19 +52,47 @@ console.log('req.files:', req.files);
 
 const getAllHazardReports = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const hazardReports = await HazardReport.find()
-        .populate('user', 'firstName lastName userName');;
+        // Extract query parameters for filtering and sorting
+        const { 
+            minUpvotes,
+            maxUpvotes,
+            sortBy,
+            order
+        } = req.query;
+
+        // Build filter object
+        const filter: any = {};
+
+        // Add upvote filtering
+        if (minUpvotes || maxUpvotes) {
+            filter.upvotes = {};
+            if (minUpvotes) filter.upvotes.$gte = parseInt(minUpvotes as string);
+            if (maxUpvotes) filter.upvotes.$lte = parseInt(maxUpvotes as string);
+        }
+
+        // Build sort object
+        let sort: any = { createdAt: -1 }; // Default: newest first
+        if (sortBy === 'upvotes') {
+            sort = { upvotes: order === 'asc' ? 1 : -1 };
+        }
+
+        // Fetch hazard reports with filters and sorting
+        const hazardReports = await HazardReport.find(filter)
+            .sort(sort)
+            .populate('user', 'firstName lastName userName');
 
         return res.status(200).json({
             message: 'All Hazard Reports retrieved successfully',
             hazardReports,
-            count: hazardReports.length
+            count: hazardReports.length,
+            filters: { minUpvotes, maxUpvotes, sortBy, order }
         });
     } catch (error) {
         console.error('Error fetching hazard reports:', error);
         next(error);
     }
 };
+
 
 
 const getHazardReportById = async (req: Request, res: Response, next: NextFunction) => {
