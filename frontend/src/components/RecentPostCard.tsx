@@ -3,6 +3,9 @@ import { HazardReport } from "../types/hazardreport";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { CircleArrowUp } from "lucide-react";
+import { apiUpvoteHazard } from "../services/api";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 dayjs.extend(relativeTime);
 
@@ -14,6 +17,19 @@ interface RecentPostProps {
 const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL || "";
 
 export default function RecentPostCard({ hazard }: RecentPostProps) {
+  const [upvotes, setUpvotes] = useState(hazard.upvotes ?? 0);
+
+  const handleUpvote = async () => {
+    try {
+      const res = await apiUpvoteHazard(hazard._id);
+      setUpvotes(res.data.hazardReport.upvotes); // backend returns updated count
+    } catch (err) {
+      const error = err as Error;
+      toast.error(error.message || "Upvote failed");
+      console.error("Upvote failed:", err);
+    }
+  };
+
   return (
     <>
       <div
@@ -21,11 +37,11 @@ export default function RecentPostCard({ hazard }: RecentPostProps) {
         className=" bg-white p-4 border rounded-lg shadow-sm hover:shadow-md transition"
       >
         <div className="flex items-center mb-4">
-          <img
-            className="w-12 h-12 rounded-full mr-3 bg-red-200"
-          />
+          <img className="w-12 h-12 rounded-full mr-3 bg-red-200" />
           <div>
-            <h3 className="text-lg font-semibold text-gray-800">{hazard.user?.firstName ?? "Anonymous"} {hazard.user?.lastName}</h3>
+            <h3 className="text-lg font-semibold text-gray-800">
+              {hazard.user?.firstName ?? "Anonymous"} {hazard.user?.lastName}
+            </h3>
             <p
               className="text-sm text-gray-500"
               title={dayjs(hazard.createdAt).format("MMM D, YYYY h:mm A")}
@@ -57,7 +73,8 @@ export default function RecentPostCard({ hazard }: RecentPostProps) {
         </div>
         <div className="flex items-center justify-between text-gray-600">
           <span className="flex items-center gap-2">
-            <CircleArrowUp /> upvote
+            <CircleArrowUp onClick={handleUpvote} />
+            {`${upvotes} upvotes`}
           </span>
           {/* <span className="flex items-center gap-2">
             <FaRegCommentDots /> comment

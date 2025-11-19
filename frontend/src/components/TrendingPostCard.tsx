@@ -5,6 +5,8 @@ import { HazardReport } from "../types/hazardreport";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { CircleArrowUp } from "lucide-react";
+import { useState } from "react";
+import { apiUpvoteHazard } from "../services/api";
 
 dayjs.extend(relativeTime);
 
@@ -16,17 +18,34 @@ interface TrendingPostProps {
 const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL || "";
 
 export default function TrendingPostCard({ hazard }: TrendingPostProps) {
+  const [upvotes, setUpvotes] = useState(hazard.upvotes ?? 0);
+
+  const handleUpvote = async () => {
+    try {
+      const res = await apiUpvoteHazard(hazard._id);
+      setUpvotes(res.data.hazardReport.upvotes); // backend returns updated count
+      console.log("Upvote successful:", res.data.hazardReport.upvotes);
+    } catch (err) {
+      console.error("Upvote failed:", err);
+    }
+  };
+
   return (
     <>
       <div className="">
-        <div
-          className="w-[350px] min-w-[350px] bg-white p-4 border rounded-lg shadow-sm hover:shadow-md transition"
-        >
+        <div className="w-[350px] min-w-[350px] bg-white p-4 border rounded-lg shadow-sm hover:shadow-md transition">
           <div className="w-[90%]  mx-auto flex items-center mb-4">
             <div className="flex items-center space-x-3">
-              <img src="#" alt="avatar" className="w-12 h-12 rounded-full bg-red-300" />
+              <img
+                src="#"
+                alt="avatar"
+                className="w-12 h-12 rounded-full bg-red-300"
+              />
               <div>
-                <p className="text-md font-semibold text-gray-800">{hazard.user?.firstName ?? "Anonymous"} {hazard.user?.lastName}</p>
+                <p className="text-md font-semibold text-gray-800">
+                  {hazard.user?.firstName ?? "Anonymous"}{" "}
+                  {hazard.user?.lastName}
+                </p>
                 <p
                   className="text-sm text-gray-500"
                   title={dayjs(hazard.createdAt).format("MMM D, YYYY h:mm A")}
@@ -37,18 +56,17 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
             </div>
           </div>
           <div>
-            <p className="text-gray-700 mb-4">{hazard.description}
-            </p>
+            <p className="text-gray-700 mb-4">{hazard.description}</p>
             <div className="flex items-center gap-x-[1rem] overflow-y-hidden">
               {hazard.images && hazard.images.length > 0 ? (
                 <div className="flex gap-2">
                   {hazard.images.map((img, idx) => (
                     <img
-                    key={idx}
-                    src={`${baseUrl}/${img}`} // prepend backend URL
-                    alt={`Hazard ${hazard.title} image ${idx + 1}`}
-                    className="w-full h-48 object-cover rounded-xl mb-4"
-                  />
+                      key={idx}
+                      src={`${baseUrl}/${img}`} // prepend backend URL
+                      alt={`Hazard ${hazard.title} image ${idx + 1}`}
+                      className="w-full h-48 object-cover rounded-xl mb-4"
+                    />
                   ))}
                 </div>
               ) : (
@@ -80,7 +98,8 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
           </div>
           <div className="flex items-center justify-between text-gray-600">
             <span className="flex items-center gap-2">
-              <CircleArrowUp/> upvote
+              <CircleArrowUp onClick={handleUpvote} />
+            {`${upvotes} upvotes`}
             </span>
             {/* <span className="flex items-center gap-2">
               <FaRegCommentDots /> comment

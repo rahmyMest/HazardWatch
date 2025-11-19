@@ -21,8 +21,13 @@ const Login: React.FC = () => {
     try {
       const response = await apiLogin({ userName, password });
 
-      if (response.status === 200 && response.data?.token || response.data?.user) {
-        setLogin(response.data.token, response.data.user);
+      if (response.status === 200 && response.data?.token) {
+        const token = response.data.token;
+
+        // Decode user from token
+        const decoded = JSON.parse(atob(token.split(".")[1]));
+
+        setLogin(token, decoded); // << use decoded instead of response.data.user
 
         toast.success("Login successful!", {
           position: "top-right",

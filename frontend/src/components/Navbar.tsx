@@ -60,9 +60,9 @@ const Navbar: React.FC = () => {
                 />
                 <div className="hidden md:flex md:flex-col md:leading-tight">
                   <p className="text-sm text-gray-500">
-                    {user?.firstName ?? user?.userName ?? "User"}
+                    {user?.firstName || user?.userName || "User"}
                   </p>
-                  <p className="text-sm text-gray-500">jane.doe@gmail.com</p>
+                  <p className="text-sm text-gray-500">{user?.email}</p>
                 </div>
                 <div className="hidden md:flex relative">
                   <img

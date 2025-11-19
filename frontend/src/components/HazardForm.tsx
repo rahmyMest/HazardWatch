@@ -259,19 +259,23 @@ export default function HazardForm({ onSuccess }: HazardFormProps) {
                 required
               />
             </div>
+            <div>
+              <label
+                htmlFor="location"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Location
+              </label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                required
+              />
+            </div>
           </div>
-
-          {/* 🌍 Location Picker */}
-          {/* <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Select Location on Map
-            </label>
-            <LocationPicker onLocationSelect={setLocation} />
-          </div> */}
-
-          {/* Hidden field to include location */}
-          {/* <input type="hidden" name="location" value={location} /> */}
-
           <SubmitButton />
         </form>
       </div>

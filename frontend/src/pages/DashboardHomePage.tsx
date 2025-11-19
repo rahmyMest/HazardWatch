@@ -3,7 +3,7 @@ import PostHazzardReportUi from "../components/PostHazzardReportUi";
 import RecentPostCard from "../components/RecentPostCard";
 import TrendingPostCard from "../components/TrendingPostCard";
 import { HazardReport } from "../types/hazardreport";
-import { apiGetAllHazardReports } from "../services/api";
+import { apiGetAllHazardReports, apiGetTrendingHazardReports } from "../services/api";
 import { announcement } from "..";
 import ProfileImage from "../assets/images/ladyprofile.png";
 import AirQuality from "../components/AirQuality";
@@ -15,6 +15,7 @@ interface HazardResponse {
 
 export default function DashboardHomePage() {
   const [hazards, setHazards] = useState<HazardReport[]>([]);
+  const [trendinghazards, setTrendingHazards] = useState<HazardReport[]>([]);
 
   const fetchHazards = async () => {
     try {
@@ -29,9 +30,28 @@ export default function DashboardHomePage() {
     }
   };
 
+  // Get Hazards with Highest Upvotes
+    const getTrendingHazards = async () => {
+    try {
+      const response = (await apiGetTrendingHazardReports()) as unknown as {
+        data: HazardResponse;
+      };
+
+      console.log("Fetched hazards:", response.data.hazardReports);
+      setTrendingHazards(response.data.hazardReports);
+    } catch (err) {
+      console.error("Render error:", err);
+    }
+  };
+  
+
   // fetch on mount
   useEffect(() => {
     fetchHazards();
+  }, []);
+  // Trending fetch on mount
+  useEffect(() => {
+    getTrendingHazards();
   }, []);
 
   return (
@@ -60,8 +80,8 @@ export default function DashboardHomePage() {
               </a>
             </div>
             <div className="w-[calc(100vw-255px)] overflow-x-scroll flex gap-6">
-              {hazards.length > 0 &&
-                hazards.map((hazard) => (
+              {trendinghazards.length > 0 &&
+                trendinghazards.map((hazard) => (
                   <TrendingPostCard key={hazard._id} hazard={hazard} />
                 ))}
             </div>
@@ -84,8 +104,6 @@ export default function DashboardHomePage() {
               <div className="grid grid-cols-1 gap-6">
                 {hazards.length > 0 &&
                   hazards
-                    .slice()
-                    .reverse()
                     .map((hazard) => (
                       <RecentPostCard key={hazard._id} hazard={hazard} />
                     ))}

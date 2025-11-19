@@ -8,6 +8,8 @@ export interface HazardReport {
     latitude: number;
     longitude: number;
   images: string[];
+  upvotedBy: string[];
+  upvotes: number;
   user?: {
     _id?: string;
     firstName?: string;
