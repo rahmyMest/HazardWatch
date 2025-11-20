@@ -22,8 +22,6 @@ export default function DashboardHomePage() {
       const response = (await apiGetAllHazardReports()) as unknown as {
         data: HazardResponse;
       };
-
-      console.log("Fetched hazards:", response.data.hazardReports);
       setHazards(response.data.hazardReports);
     } catch (err) {
       console.error("Render error:", err);
@@ -36,8 +34,6 @@ export default function DashboardHomePage() {
       const response = (await apiGetTrendingHazardReports()) as unknown as {
         data: HazardResponse;
       };
-
-      console.log("Fetched hazards:", response.data.hazardReports);
       setTrendingHazards(response.data.hazardReports);
     } catch (err) {
       console.error("Render error:", err);

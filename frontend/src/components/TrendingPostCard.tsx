@@ -99,7 +99,7 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
           <div className="flex items-center justify-between text-gray-600">
             <span className="flex items-center gap-2">
               <CircleArrowUp onClick={handleUpvote} />
-            {`${upvotes} upvotes`}
+              {`${upvotes} upvotes`}
             </span>
             {/* <span className="flex items-center gap-2">
               <FaRegCommentDots /> comment

@@ -1,4 +1,5 @@
 export interface HazardReport {
+  hazardReport: any;
   _id: string;
   title: string;
   description: string;
