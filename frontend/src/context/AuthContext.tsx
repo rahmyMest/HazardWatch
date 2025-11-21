@@ -37,7 +37,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       if (isJWT) {
         const decoded = JSON.parse(atob(parts[1]));
-        console.log("Decoded token:", decoded);
 
         if (decoded) {
           setUser(decoded);

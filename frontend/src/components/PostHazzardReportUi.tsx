@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import profilePic from "../assets/images/postHazzardReportUi/profilePic.png";
+import profilePic from "../assets/images/profile.png";
 import {
   Description,
   Dialog,
@@ -27,7 +27,7 @@ const PostHazzardReportUi: React.FC<PostHazzardReportUiProps> = ({
           <div className="flex items-center justify-center gap-x-5">
             {/* Start Avatar Section */}
 
-            <div className="w-[45px] h-[45px] overflow-hidden">
+            <div className="w-[45px] h-[45px] overflow-hidden rounded-full">
               <img
                 src={profilePic}
                 alt="profile picture"

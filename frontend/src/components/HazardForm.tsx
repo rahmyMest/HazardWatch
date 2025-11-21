@@ -10,6 +10,7 @@ import SubmitButton from "./SubmitButton";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 type HazardFormProps = {
   onSuccess: () => void;
@@ -82,6 +83,8 @@ type HazardFormProps = {
 
 // 🌿 Main Hazard Form
 export default function HazardForm({ onSuccess }: HazardFormProps) {
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
   // const [location, setLocation] = useState<string>("");
   const navigate = useNavigate();
 
@@ -190,6 +193,7 @@ export default function HazardForm({ onSuccess }: HazardFormProps) {
             </div>
 
             {/* Upload Images */}
+            {/* Upload Images */}
             <div className="flex-1 flex flex-col">
               <label
                 htmlFor="images"
@@ -197,13 +201,14 @@ export default function HazardForm({ onSuccess }: HazardFormProps) {
               >
                 Upload Images
               </label>
+
               <label
                 htmlFor="images"
                 className="flex flex-col items-center justify-center 
-                w-full h-40 sm:h-44 md:h-52
-                px-6 py-4 border-2 border-dashed border-gray-300 rounded-md 
-                shadow-sm cursor-pointer hover:border-blue-500 hover:text-blue-500 
-                transition-colors duration-200"
+      w-full h-40 sm:h-44 md:h-52
+      px-6 py-4 border-2 border-dashed border-gray-300 rounded-md 
+      shadow-sm cursor-pointer hover:border-blue-500 hover:text-blue-500 
+      transition-colors duration-200"
               >
                 <span className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 text-3xl text-gray-500">
                   +
@@ -212,6 +217,7 @@ export default function HazardForm({ onSuccess }: HazardFormProps) {
                   Click to upload
                 </span>
               </label>
+
               <input
                 type="file"
                 id="images"
@@ -220,7 +226,45 @@ export default function HazardForm({ onSuccess }: HazardFormProps) {
                 required
                 multiple
                 accept="image/*"
+                onChange={(e) => {
+                  const files = Array.from(e.target.files || []);
+                  setSelectedFiles(files);
+                }}
               />
+
+              {/* Show selected files with remove option */}
+              {selectedFiles.length > 0 && (
+                <div className="mt-2 text-xs text-gray-600 space-y-1">
+                  {selectedFiles.map((file, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between"
+                    >
+                      <span>• {file.name}</span>
+                      <button
+                        type="button"
+                        className="text-red-500 ml-3"
+                        onClick={() => {
+                          const newFiles = selectedFiles.filter(
+                            (_, i) => i !== index
+                          );
+                          setSelectedFiles(newFiles);
+
+                          // update the input's FileList
+                          const dt = new DataTransfer();
+                          newFiles.forEach((f) => dt.items.add(f));
+                          const input = document.getElementById(
+                            "images"
+                          ) as HTMLInputElement;
+                          if (input) input.files = dt.files;
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 

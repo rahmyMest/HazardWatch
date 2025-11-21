@@ -1,6 +1,6 @@
 import dashboardIcon from "../assets/images/dashboardIcon.png";
 import mapIcon from "../assets/images/mapIcon.png";
-import avatarIcon from "../assets/images/avatarIcon.png";
+import avatarIcon from "../assets/images/profile.png";
 import bellIcon from "../assets/images/bellIcon.png";
 import messagesIcon from "../assets/images/messagesIcon.png";
 import { ROUTES } from "../constants/routes";

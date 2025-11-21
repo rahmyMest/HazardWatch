@@ -84,9 +84,9 @@ export default function DashboardHomePage() {
           </section>
           {/* <HazardReport /> */}
 
-          <div className="flex gap-6">
+          <div className="flex gap-6 md:w-full">
             {/* Recent Post Section */}
-            <section className="mb-8 w-full md:w-2/3">
+            <section className="mb-8 w-full">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold text-gray-800">Recent Post</h2>
                 <a
@@ -107,7 +107,7 @@ export default function DashboardHomePage() {
             </section>
 
             {/* Announcement Section */}
-            <section className=" w-1/3 hidden md:block sticky top-20 h-[80vh]">
+            <section className=" md:w-[65%] hidden md:block sticky top-20 h-[80vh]">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold text-gray-800">
                   Announcement
@@ -129,7 +129,7 @@ export default function DashboardHomePage() {
                         />
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-800 leading-5">
+                        <h3 className="text-sm font-semibold text-gray-800 leading-5">
                           {post.title}
                         </h3>
                         <p className="text-sm text-gray-500">{post.date}</p>
