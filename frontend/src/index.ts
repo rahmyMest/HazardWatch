@@ -113,34 +113,34 @@ export const recent_posts: Recent_Post[] = [
   title: "Flood Alert – High Risk Zones",
   date: "Thursday 20 November 2024",
   description: "Heavy rains have caused rising water levels in low-lying areas. Avoid flooded paths and follow safety updates.",
-  profileImage: "https://s3-alpha-sig.figma.com/img/fbfc/b2ca/07ccc20ea97ac86e53e739e447a3ac7a?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Imqg1D-tetRZbCyClu6jaN5a0-~N2d-CZ6Z0l9yvey9R14m4H54t0VVO9J37Bx6-Mv5blEFIej6Q-oCzMS7PYQ7rbjR4B1nfrAoovrr5xenzogtdc773Hhy~jQfS37AL3a2JlYv2GabNx2~F53M-JqSAvSqgiNchAL9VEP8EuwXUU2DF~D1MGUmXVZgfM99N4DBGAefgW4JIpRN8xJn4ffXSXsa1Tc-BOsezKbCLY-ctlBJHldG9HJF8F6z8OEDC350ihw~ay04OQlzEfKkInU5XfS3U4H87FwpVCxBjR5h0SWxWu7eTU~6meKMu~hjWZE7Q~jX5FowFaZXtzmXNCQ__"
+  profileImage: "https://res.cloudinary.com/dikrqlovc/image/upload/v1763725286/default_lp2rfk.jpg"
 },
 {
   id: "1",
   title: "Fire Outbreak Warning – Market Centers",
   date: "Thursday 20 November 2024",
   description: "Small fire incidents reported in trading areas. Ensure all electricals are switched off after business hours.",
-  profileImage: "https://s3-alpha-sig.figma.com/img/fbfc/b2ca/07ccc20ea97ac86e53e739e447a3ac7a?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Imqg1D-tetRZbCyClu6jaN5a0-~N2d-CZ6Z0l9yvey9R14m4H54t0VVO9J37Bx6-Mv5blEFIej6Q-oCzMS7PYQ7rbjR4B1nfrAoovrr5xenzogtdc773Hhy~jQfS37AL3a2JlYv2GabNx2~F53M-JqSAvSqgiNchAL9VEP8EuwXUU2DF~D1MGUmXVZgfM99N4DBGAefgW4JIpRN8xJn4ffXSXsa1Tc-BOsezKbCLY-ctlBJHldG9HJF8F6z8OEDC350ihw~ay04OQlzEfKkInU5XfS3U4H87FwpVCxBjR5h0SWxWu7eTU~6meKMu~hjWZE7Q~jX5FowFaZXtzmXNCQ__"
+  profileImage: "https://res.cloudinary.com/dikrqlovc/image/upload/v1763725390/Fire-outbreak_x0wlns.jpg"
 },
 {
   id: "2",
   title: "Road Hazard – Oil Spill Reported",
   date: "Thursday 20 November 2024",
   description: "A major oil spill has made a section of the motorway slippery. Motorists should slow down and use alternate routes.",
-  profileImage: "https://s3-alpha-sig.figma.com/img/fbfc/b2ca/07ccc20ea97ac86e53e739e447a3ac7a?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Imqg1D-tetRZbCyClu6jaN5a0-~N2d-CZ6Z0l9yvey9R14m4H54t0VVO9J37Bx6-Mv5blEFIej6Q-oCzMS7PYQ7rbjR4B1nfrAoovrr5xenzogtdc773Hhy~jQfS37AL3a2JlYv2GabNx2~F53M-JqSAvSqgiNchAL9VEP8EuwXUU2DF~D1MGUmXVZgfM99N4DBGAefgW4JIpRN8xJn4ffXSXsa1Tc-BOsezKbCLY-ctlBJHldG9HJF8F6z8OEDC350ihw~ay04OQlzEfKkInU5XfS3U4H87FwpVCxBjR5h0SWxWu7eTU~6meKMu~hjWZE7Q~jX5FowFaZXtzmXNCQ__"
+  profileImage: "https://res.cloudinary.com/dikrqlovc/image/upload/v1763725457/Oil-spill-cleanup-Freshwater-West-Bay-Dyfed-Wales-1995_p2i5g2.png"
 },
 {
   id: "3",
   title: "Strong Wind Alert – Coastal Areas",
   date: "Thursday 20 November 2024",
   description: "Strong coastal winds expected. Secure all loose outdoor items and avoid walking near weak structures.",
-  profileImage: ""
+  profileImage: "https://res.cloudinary.com/dikrqlovc/image/upload/v1763725515/Paradise-Blog-Photos-2-27_pizfxr.jpg"
 },
 {
   id: "4",
   title: "Heatwave Advisory – Stay Hydrated",
   date: "Thursday 20 November 2024",
   description: "Temperatures remain high. Limit outdoor activities and check on children, the elderly, and vulnerable persons.",
-  profileImage: "https://s3-alpha-sig.figma.com/img/fbfc/b2ca/07ccc20ea97ac86e53e739e447a3ac7a?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Imqg1D-tetRZbCyClu6jaN5a0-~N2d-CZ6Z0l9yvey9R14m4H54t0VVO9J37Bx6-Mv5blEFIej6Q-oCzMS7PYQ7rbjR4B1nfrAoovrr5xenzogtdc773Hhy~jQfS37AL3a2JlYv2GabNx2~F53M-JqSAvSqgiNchAL9VEP8EuwXUU2DF~D1MGUmXVZgfM99N4DBGAefgW4JIpRN8xJn4ffXSXsa1Tc-BOsezKbCLY-ctlBJHldG9HJF8F6z8OEDC350ihw~ay04OQlzEfKkInU5XfS3U4H87FwpVCxBjR5h0SWxWu7eTU~6meKMu~hjWZE7Q~jX5FowFaZXtzmXNCQ__"
+  profileImage: "https://res.cloudinary.com/dikrqlovc/image/upload/v1763725547/2048_hkjwaf.webp"
 }
     ]

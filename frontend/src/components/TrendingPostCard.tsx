@@ -7,6 +7,8 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { CircleArrowUp } from "lucide-react";
 import { useState } from "react";
 import { apiUpvoteHazard } from "../services/api";
+import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 dayjs.extend(relativeTime);
 
@@ -18,16 +20,35 @@ interface TrendingPostProps {
 const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL || "";
 
 export default function TrendingPostCard({ hazard }: TrendingPostProps) {
+  const { user } = useAuth();
+
   const [upvotes, setUpvotes] = useState(hazard.upvotes ?? 0);
+  const [upvotedBy, setUpvotedBy] = useState<string[]>(hazard.upvotedBy ?? []);
+
+  const userId = user?.id;
+  console.log("Current User ID:", userId);
+
+  // FIXED REAL TIME TOGGLE CHECK
+  const hasUpvoted = userId ? upvotedBy.includes(userId) : false;
 
   const handleUpvote = async () => {
+    if (!userId) return toast.error("Please login to upvote");
+
     try {
       const res = await apiUpvoteHazard(hazard._id);
-      setUpvotes(res.data.hazardReport.upvotes); // backend returns updated count
-      console.log("Upvote successful:", res.data.hazardReport.upvotes);
-    } catch (err) {
-      console.error("Upvote failed:", err);
-    }
+
+      const updated = res.data.hazardReport;
+
+      // update counts
+      setUpvotes(updated.upvotes);
+
+      // update list of users that have upvoted
+      setUpvotedBy(updated.upvotedBy);
+    } catch (err: any) {
+    const backendMsg = err?.response?.data?.message;
+    toast.error(backendMsg || "Upvote failed");
+    console.error("Upvote failed:", err);
+  }
   };
 
   return (
@@ -98,9 +119,13 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
           </div>
           <div className="flex items-center justify-between text-gray-600">
             <span className="flex items-center gap-2">
-              <CircleArrowUp onClick={handleUpvote} />
-              {`${upvotes} upvotes`}
-            </span>
+            <CircleArrowUp
+              onClick={handleUpvote}
+              className={`cursor-pointer transition 
+                ${hasUpvoted ? "text-blue-600" : "text-gray-400"}`}
+            />
+            {`${upvotes} upvotes`}
+          </span>
             {/* <span className="flex items-center gap-2">
               <FaRegCommentDots /> comment
             </span> */}

@@ -5,7 +5,6 @@ import TrendingPostCard from "../components/TrendingPostCard";
 import { HazardReport } from "../types/hazardreport";
 import { apiGetAllHazardReports, apiGetTrendingHazardReports } from "../services/api";
 import { announcement } from "..";
-import ProfileImage from "../assets/images/ladyprofile.png";
 import AirQuality from "../components/AirQuality";
 
 // Define the expected API response
@@ -123,7 +122,7 @@ export default function DashboardHomePage() {
                       <div className="bg-red-400 w-40 h-20 m-2 rounded-lg">
                         <img
                           // src={post.profileImage}
-                          src={ProfileImage}
+                          src={post.profileImage}
                           alt={post.title}
                           className="w-full h-full object-cover rounded-lg"
                         />
