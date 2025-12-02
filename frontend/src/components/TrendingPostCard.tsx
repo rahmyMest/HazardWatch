@@ -26,7 +26,6 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
   const [upvotedBy, setUpvotedBy] = useState<string[]>(hazard.upvotedBy ?? []);
 
   const userId = user?.id;
-  console.log("Current User ID:", userId);
 
   // FIXED REAL TIME TOGGLE CHECK
   const hasUpvoted = userId ? upvotedBy.includes(userId) : false;
