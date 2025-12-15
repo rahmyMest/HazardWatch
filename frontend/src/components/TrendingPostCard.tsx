@@ -54,8 +54,8 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
   return (
     <>
       <div className="">
-        <div className="w-[350px] min-w-[350px] bg-white p-4 border rounded-lg shadow-sm hover:shadow-md transition">
-          <div className="w-[90%]  mx-auto flex items-center mb-4">
+        <div className="w-[350px] min-w-[350px] h-full p-4 border rounded-lg shadow-sm hover:shadow-md transition">
+          <div className="w-[90%] mx-auto flex items-center mb-4">
             <div className="flex items-center space-x-3">
               <img
                 src="#"
@@ -64,8 +64,7 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
               />
               <div>
                 <p className="text-md font-semibold text-gray-800">
-                  {hazard.user?.firstName ?? "Anonymous"}{" "}
-                  {hazard.user?.lastName}
+                  {hazard.user?.userName ?? "Anonymous"}
                 </p>
                 <p
                   className="text-sm text-gray-500"
@@ -85,7 +84,7 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
               {hazard.description}
             </p>
 
-            {hazard.description.length > 100 && (
+            {hazard.description.length > 10 && (
               <button
                 onClick={() => setExpanded(!expanded)}
                 className="text-blue-600 text-sm font-medium hover:underline"

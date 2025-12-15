@@ -54,7 +54,7 @@ export default function RecentPostCard({ hazard }: RecentPostProps) {
           <img className="w-12 h-12 rounded-full mr-3 bg-red-200" />
           <div>
             <h3 className="text-lg font-semibold text-gray-800">
-              {hazard.user?.firstName ?? "Anonymous"} {hazard.user?.lastName}
+              {hazard.user?.userName ?? "Anonymous"}
             </h3>
             <p
               className="text-sm text-gray-500"

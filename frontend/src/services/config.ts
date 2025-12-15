@@ -50,5 +50,3 @@ apiClient.interceptors.response.use(
   }
 );
 
-// Optional: debugging
-console.log("Axios interceptor initialized. Current token:", getToken());

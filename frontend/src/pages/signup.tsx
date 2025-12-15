@@ -9,8 +9,7 @@ const SignUp: React.FC = () => {
   // const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -25,8 +24,7 @@ const SignUp: React.FC = () => {
     try {
       setLoading(true);
       await apiSignup({
-        firstName: firstName,
-        lastName: lastName,
+        email: email,
         password: password,
         confirmPassword: confirmPassword,
         userName: userName,
@@ -61,34 +59,6 @@ const SignUp: React.FC = () => {
           </h1>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                First Name
-              </label>
-              <input
-                type="text"
-                name="firstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Enter your first name"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Last Name
-              </label>
-              <input
-                type="text"
-                name="lastName"
-                onChange={(e) => setLastName(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Enter your last name"
-                required
-              />
-            </div>
-            {/* email here */}
-            {/* <div>
               <label
                 htmlFor="Email"
                 className="block text-sm font-medium text-gray-700"
@@ -105,7 +75,7 @@ const SignUp: React.FC = () => {
                 placeholder="Enter your email"
                 required
               />
-            </div> */}
+            </div>
             <div>
               <label
                 htmlFor="UserName"
