@@ -6,7 +6,7 @@ import { apiSignup } from "../services/auth";
 import { AxiosError } from "axios";
 
 const SignUp: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
+  // const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
@@ -27,7 +27,6 @@ const SignUp: React.FC = () => {
       await apiSignup({
         firstName: firstName,
         lastName: lastName,
-        email: email,
         password: password,
         confirmPassword: confirmPassword,
         userName: userName,
@@ -88,7 +87,8 @@ const SignUp: React.FC = () => {
                 required
               />
             </div>
-            <div>
+            {/* email here */}
+            {/* <div>
               <label
                 htmlFor="Email"
                 className="block text-sm font-medium text-gray-700"
@@ -105,7 +105,7 @@ const SignUp: React.FC = () => {
                 placeholder="Enter your email"
                 required
               />
-            </div>
+            </div> */}
             <div>
               <label
                 htmlFor="UserName"

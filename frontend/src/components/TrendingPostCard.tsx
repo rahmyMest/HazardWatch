@@ -22,6 +22,7 @@ const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL || "";
 export default function TrendingPostCard({ hazard }: TrendingPostProps) {
   const { user } = useAuth();
 
+  const [expanded, setExpanded] = useState(false);
   const [upvotes, setUpvotes] = useState(hazard.upvotes ?? 0);
   const [upvotedBy, setUpvotedBy] = useState<string[]>(hazard.upvotedBy ?? []);
 
@@ -44,10 +45,10 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
       // update list of users that have upvoted
       setUpvotedBy(updated.upvotedBy);
     } catch (err: any) {
-    const backendMsg = err?.response?.data?.message;
-    toast.error(backendMsg || "Upvote failed");
-    console.error("Upvote failed:", err);
-  }
+      const backendMsg = err?.response?.data?.message;
+      toast.error(backendMsg || "Upvote failed");
+      console.error("Upvote failed:", err);
+    }
   };
 
   return (
@@ -76,7 +77,22 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
             </div>
           </div>
           <div>
-            <p className="text-gray-700 mb-4">{hazard.description}</p>
+            <p
+              className={`text-gray-700 mb-4 text-sm ${
+                expanded ? "" : "line-clamp-2"
+              }`}
+            >
+              {hazard.description}
+            </p>
+
+            {hazard.description.length > 100 && (
+              <button
+                onClick={() => setExpanded(!expanded)}
+                className="text-blue-600 text-sm font-medium hover:underline"
+              >
+                {expanded ? "Read less" : "Read more"}
+              </button>
+            )}
             <div className="flex items-center gap-x-[1rem] overflow-y-hidden">
               {hazard.images && hazard.images.length > 0 ? (
                 <div className="flex gap-2">
@@ -118,13 +134,13 @@ export default function TrendingPostCard({ hazard }: TrendingPostProps) {
           </div>
           <div className="flex items-center justify-between text-gray-600">
             <span className="flex items-center gap-2">
-            <CircleArrowUp
-              onClick={handleUpvote}
-              className={`cursor-pointer transition 
+              <CircleArrowUp
+                onClick={handleUpvote}
+                className={`cursor-pointer transition 
                 ${hasUpvoted ? "text-blue-600" : "text-gray-400"}`}
-            />
-            {`${upvotes} upvotes`}
-          </span>
+              />
+              {`${upvotes} upvotes`}
+            </span>
             {/* <span className="flex items-center gap-2">
               <FaRegCommentDots /> comment
             </span> */}
