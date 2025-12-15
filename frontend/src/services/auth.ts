@@ -8,7 +8,7 @@ export const apiLogin = async (payload: {
 export const apiSignup = async (payload: {
   firstName: string;
   lastName: string;
-  email: string;
+  // email: string;
   password: string;
   confirmPassword: string;
   userName: string;
