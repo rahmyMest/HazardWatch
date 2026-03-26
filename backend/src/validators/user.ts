@@ -38,3 +38,21 @@ export const updateUserValidator = Joi.object({
     userName: Joi.string(),
     role: Joi.string().valid('admin', 'user'),
 });
+
+
+// Admin signup validator
+export const adminSignupValidator = Joi.object({
+    firstName:       Joi.string().required(),
+    lastName:        Joi.string().required(),
+    userName:        Joi.string().required(),
+    email:           Joi.string().email().required(),
+    password:        Joi.string().min(6).required(),
+    confirmPassword: Joi.string().valid(Joi.ref('password')).required()
+        .messages({ 'any.only': 'Passwords do not match' }),
+});
+
+// Admin signin validator
+export const adminSigninValidator = Joi.object({
+    userName: Joi.string().required(),
+    password: Joi.string().required(),
+});

@@ -8,6 +8,8 @@ const router = express.Router();
 // Define routes
 router.post('/users/register', controller.register);
 router.post('/users/login', controller.login);
+router.post('/admin/signup', controller.adminSignup);
+router.post('/admin/signin', controller.adminSignin);
 router.patch('/users/', checkAuth, hasPermission('create_user'), controller.createUser);
 router.patch('/users/:id', checkAuth, hasPermission('update_user'), controller.editUser);
 router.delete('/users/:id', checkAuth, hasPermission('delete_user'), controller.deleteUser);

@@ -1,7 +1,8 @@
 
 import { Document, Types } from 'mongoose';
 
-export default interface IUser extends Document{
+// User interface
+export default interface IUser extends Document {
     _id: Types.ObjectId;
     firstName: string;
     lastName: string;
@@ -9,17 +10,19 @@ export default interface IUser extends Document{
     email: string;
     password: string;
     confirmPassword: string;
-    role: string;
+    role: 'admin' | 'user'; // 👈 changed from string to specific values
     reports: Types.ObjectId[];
     createResetPasswordToken: string;
-    
+    passwordChangedAt?: Date;
+    passwordResetToken?: string;
+    passwordResetTokenExpires?: Date;
 }
-// define report interface
 
- export default interface IReport extends Document{
+// Report interface — export as named export, not default (fixes the double export default error)
+export interface IReport extends Document {
     userId: Types.ObjectId;
-    reportType:String;
-    description:String;
-    status:String;
-    createdAt:Date;
+    reportType: string;
+    description: string;
+    status: string;
+    createdAt: Date;
 }

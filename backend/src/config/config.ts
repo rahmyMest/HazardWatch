@@ -1,9 +1,13 @@
 import dotenv from "dotenv";
+import path from "path";
 
+// Force dotenv to look in the right place
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 dotenv.config();
+console.log('MONGO_URL loaded:', process.env.MONGO_URL);
 
 // Load environment variables from .env file
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:1337/defaultDB';
+const MONGO_URL = process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/defaultDB';
 
 
 const MONGO_OPTIONS = {

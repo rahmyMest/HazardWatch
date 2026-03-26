@@ -1,18 +1,19 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express, { Request, Response, NextFunction } from "express";
 import http from "http";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import logging from "./config/logging";
+import config from "./config/config";
 import userRoutes from "./router/user";
 import resetPasswordRoutes from "./router/resetpassword";
 import hazardRoutes from "./router/hazardtypes";
 import hazardReport from "./router/hazardreport";
-import dotenv from "dotenv";
-import config from "./config/config";
 import cors from "cors";
 import "express-async-errors";
 
-dotenv.config();
+
 
 const NAMESPACE = "Server";
 const app = express();
