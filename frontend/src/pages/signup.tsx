@@ -3,14 +3,12 @@ import { assets } from "../assets";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { apiSignup } from "../services/auth";
-import { AxiosError } from "axios";
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -25,8 +23,7 @@ const SignUp: React.FC = () => {
     try {
       setLoading(true);
       await apiSignup({
-        firstName: firstName,
-        lastName: lastName,
+        phoneNumber: phoneNumber,
         email: email,
         password: password,
         confirmPassword: confirmPassword,
@@ -35,8 +32,15 @@ const SignUp: React.FC = () => {
       toast.success("Sign up Successful");
       navigate("/login");
     } catch (error) {
-      const err = error as AxiosError;
-      const errorMessage = (err.response?.data as { message: string })?.message ?? "An error occurred";
+      const axiosError = error as { response?: { data?: { message?: string } | string } };
+      let errorMessage = "An error occurred during signup";
+      if (axiosError.response?.data) {
+        if (typeof axiosError.response.data === "string") {
+          errorMessage = axiosError.response.data;
+        } else if (axiosError.response.data.message) {
+          errorMessage = axiosError.response.data.message;
+        }
+      }
       toast.error(errorMessage);
     } finally {
       setLoading(false);
@@ -56,29 +60,20 @@ const SignUp: React.FC = () => {
           </h1>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                First Name
+              <label
+                htmlFor="UserName"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Username<span className="text-red-500">*</span>
               </label>
               <input
+                id="UserName"
                 type="text"
-                name="firstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                name="userName"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Enter your first name"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Last Name
-              </label>
-              <input
-                type="text"
-                name="lastName"
-                onChange={(e) => setLastName(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Enter your last name"
+                placeholder="Enter your username"
                 required
               />
             </div>
@@ -101,20 +96,16 @@ const SignUp: React.FC = () => {
               />
             </div>
             <div>
-              <label
-                htmlFor="UserName"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Username
+              <label className="block text-sm font-medium text-gray-700">
+                Phone Number<span className="text-red-500">*</span>
               </label>
               <input
-                id="UserName"
-                type="text"
-                name="userName"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                type="tel"
+                name="phoneNumber"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Enter your username"
+                placeholder="Enter your phone number"
                 required
               />
             </div>
@@ -123,7 +114,7 @@ const SignUp: React.FC = () => {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
               >
-                Password
+                Password<span className="text-red-500">*</span>
               </label>
               <input
                 id="password"
@@ -138,7 +129,7 @@ const SignUp: React.FC = () => {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Confirm Password
+                Confirm Password<span className="text-red-500">*</span>
               </label>
               <input
                 type="password"

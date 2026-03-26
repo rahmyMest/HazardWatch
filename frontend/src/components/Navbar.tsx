@@ -5,8 +5,29 @@ import avatarIcon from "../assets/images/avatarIcon.png";
 import bellIcon from "../assets/images/bellIcon.png";
 import messagesIcon from "../assets/images/messagesIcon.png";
 import { ROUTES } from "../constants/routes";
+import { useEffect, useState } from "react";
+import { parseJwt } from "../utils/jwt";
+
+interface User {
+  firstName: string;
+  lastName: string;
+  email: string;
+  userName: string;
+}
 
 const Navbar = () => {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = parseJwt(token);
+      if (decoded) {
+        setUser(decoded);
+      }
+    }
+  }, []);
+
   return (
     <div>
       <nav className="flex flex-col md:flex-row justify-between items-center px-6 pt-8">
@@ -42,8 +63,8 @@ const Navbar = () => {
             className="w-8 h-8 rounded-full"
           />
           <div>
-            <p className="font-semibold">Jane Doe</p>
-            <p className="text-sm text-gray-500">jane.doe@gmail.com</p>
+            <p className="font-semibold">{user ? `${user.firstName} ${user.lastName}` : "Guest User"}</p>
+            <p className="text-sm text-gray-500">{user ? user.email : "guest@example.com"}</p>
           </div>
           <div className="relative">
             <img

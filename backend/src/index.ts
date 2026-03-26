@@ -88,10 +88,24 @@ app.use((req, res, next) => {
 // httpServer.listen(config.server.port, () => logging.info(NAMESPACE, `Server is running ${config.server.hostname}:${config.server.port}`));
 
 // Listen for incoming requests
-const port = process.env.PORT || 1337;
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
+let port = Number(config.server.port) || 1337;
+
+const startServer = (currentPort: number) => {
+  const server = app.listen(currentPort, () => {
+    console.log(`App listening on port ${currentPort}`);
+  });
+
+  server.on('error', (err: any) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`Port ${currentPort} is already in use. Trying port ${currentPort + 1}...`);
+      startServer(currentPort + 1);
+    } else {
+      console.error('Server error:', err);
+    }
+  });
+};
+
+startServer(port);
 
 // Error handling middleware
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {

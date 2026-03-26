@@ -1,17 +1,3 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import DashboardLayout from "./layouts/dashBoardLayout";
-import Home from "./components/Home";
-import Events from "./components/Events";
-import Inbox from "./components/Inbox";
-import Broadcasts from "./components/Broadcasts";
-import Settings from "./components/Settings";
-import Sidebar from "./components/SideBar";
-
-
-
-
-
-
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DashboardLayout from "./layouts/dashBoardLayout";
