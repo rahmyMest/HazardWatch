@@ -3,13 +3,10 @@ import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
 import logging from "../config/logging";
 import User from "../models/user";
-import jwt from "jsonwebtoken";
-import config from "config/config";
+import HazardReport from "../models/hazardreport";
 import signJWT from "../functions/signJWT";
-import bcrypt from "bcrypt";
 import {
   createUserValidator,
-  forgotPasswordValidator,
   loginValidator,
   registerValidator,
   updateUserValidator,
@@ -219,7 +216,10 @@ const getAllReports = async (
   next: NextFunction,
 ) => {
   try {
-    const reports = await Report;
+    const reports = await HazardReport.find().populate(
+      "user",
+      "firstName lastName userName",
+    );
     res.status(200).json({ reports, count: reports.length });
   } catch (error) {
     next(error);
@@ -268,7 +268,7 @@ const getAllUsers = (req: Request, res: Response, next: NextFunction) => {
 
 // export default { register, login, createUser, logout, editUser, deleteUser, getAllUsers,getAllReports };
 
-// ✅ ADMIN SIGNUP — changed 'export const' to just 'const'
+// ADMIN SIGNUP
 const adminSignup = async (req: Request, res: Response, next: NextFunction) => {
   const { value, error } = adminSignupValidator.validate(req.body);
   if (error) {
@@ -326,7 +326,7 @@ const adminSignup = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-// ✅ ADMIN SIGNIN — changed 'export const' to just 'const'
+// ADMIN SIGNIN
 const adminSignin = async (req: Request, res: Response, next: NextFunction) => {
   const { value, error } = adminSigninValidator.validate(req.body);
   if (error) {
@@ -341,7 +341,7 @@ const adminSignin = async (req: Request, res: Response, next: NextFunction) => {
       return res.status(401).json({ message: "Username not found" });
     }
 
-    // 🚫 Block regular users
+    // Block regular users
     if (user.role !== "admin") {
       return res
         .status(403)
@@ -383,7 +383,7 @@ const adminSignin = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-// ✅ Single clean export default — all functions in one place
+// Single clean export default.
 export default {
   register,
   login,
