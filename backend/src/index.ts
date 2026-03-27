@@ -7,6 +7,7 @@ import userRoutes from "./router/user";
 import resetPasswordRoutes from "./router/resetpassword";
 import hazardRoutes from "./router/hazardtypes";
 import hazardReport from "./router/hazardreport";
+import announcementRoutes from "./router/announcement";
 import dotenv from "dotenv";
 import config from "./config/config";
 import cors from "cors";
@@ -77,6 +78,7 @@ app.use("/api", userRoutes);
 app.use("/hazard", hazardRoutes);
 app.use("/hazard-report", hazardReport);
 app.use("/api", resetPasswordRoutes);
+app.use("/announcement", announcementRoutes);
 
 // Error handling for not found routes
 app.use((req, res, next) => {

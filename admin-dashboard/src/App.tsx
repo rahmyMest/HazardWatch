@@ -1,60 +1,44 @@
-
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import DashboardLayout from "./layouts/dashBoardLayout";
-import Home from "./components/Home";
-import Events from "./components/Events";
-import Inbox from "./components/Inbox";
-import Broadcasts from "./components/Broadcasts";
-import Settings from "./components/Settings";
-import Sidebar from "./components/SideBar";
-import AdminLogin from "./pages/AdminLogin";
+import Dashboard from "./pages/Dashboard";
+import ContentModeration from "./pages/ContentModeration";
+import Announcements from "./pages/Announcements";
+import UserManagement from "./pages/UserManagement";
+import Settings from "./pages/Settings";
 
 function App() {
     const router = createBrowserRouter([
-        {
-            path: "/sidebar",
-            element: <Sidebar/>
-       },
-       
        {
         path: "/admin-dashboard",
         element: <DashboardLayout/>,
         children: [
             {
                 index: true,
-                element: <Home />,
-
+                element: <Dashboard />,
             },
             {
-                path: "admin-dashboard/events",
-                element: <Events />,
-
+                path: "moderation",
+                element: <ContentModeration />,
             },
             {
-                path: "admin-dashboard/inbox",
-                element: <Inbox />,
-
+                path: "announcements",
+                element: <Announcements />,
             },
             {
-                path: "admin-dashboard/broadcasts",
-                element: <Broadcasts />,
-
+                path: "users",
+                element: <UserManagement />,
             },
             {
-                path: "admin-dashboard/settings",
+                path: "settings",
                 element: <Settings />,
-
             },
-
-
-            ],
-        }
-        
-       
-
-
-
-
+        ],
+      },
+      {
+          // Redirect root to dashboard for convenience
+          path: "/",
+          element: <Navigate to="/admin-dashboard" replace />
+      }
     ]);
 
     return <RouterProvider router={router} />;
