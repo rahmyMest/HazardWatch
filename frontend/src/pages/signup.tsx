@@ -77,6 +77,7 @@ const SignUp: React.FC = () => {
                 required
               />
             </div>
+            {/* signup Form */}
             <div>
               <label
                 htmlFor="Email"
