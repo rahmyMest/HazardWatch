@@ -9,12 +9,18 @@ const router = express.Router();
 router.post("/admin/signup", controller.adminSignup);
 router.post("/admin/signin", controller.adminSignin);
 
-// Admin hazard report management routes
+// Admin protected routes
 router.get(
   "/admin/reports",
   checkAuth,
   hasPermission("view_reports"),
   hazardReportController.getAllHazardReports,
+);
+router.get(
+  "/admin/reports/stats",
+  checkAuth,
+  hasPermission("view_reports"),
+  hazardReportController.getHazardReportStats,
 );
 
 export default router;
