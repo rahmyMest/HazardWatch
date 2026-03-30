@@ -27,65 +27,61 @@ const isErrorWithMessage = (error: unknown): error is { message: string } => {
 
 // Function to register a user
 const register = async (req: Request, res: Response, next: NextFunction) => {
-  // Validate request
   const { value, error } = registerValidator.validate(req.body);
   if (error) {
     return res.status(422).json(error);
   }
-  const { firstName, lastName, email, userName, password, confirmPassword } =
-    req.body;
-  // Check for all required fields
-  if (
-    !firstName ||
-    !lastName ||
-    !email ||
-    !userName ||
-    !password ||
-    !confirmPassword
-  ) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-  // Check if password and confirmPassword match
+
+  const { userName, phoneNumber, email, password, confirmPassword } = value;
+
   if (password !== confirmPassword) {
     return res.status(400).json({ message: "Passwords do not match" });
   }
-  try {
-    // check if user does not exist
-    const userEmail = await User.findOne({ email: value.email });
-    if (userEmail) {
-      return res.status(409).json({ message: "Email already exists!" });
-    }
-    // Hash the password
-    const hash = await bcryptjs.hashSync(password, 10);
 
-    // Create new user
+  try {
+    // Check if username already exists
+    const existingUserName = await User.findOne({ userName });
+    if (existingUserName) {
+      return res.status(409).json({ message: "Username already exists!" });
+    }
+
+    // Check if phone number already exists
+    const existingPhone = await User.findOne({ phoneNumber });
+    if (existingPhone) {
+      return res.status(409).json({ message: "Phone number already in use!" });
+    }
+
+    // Check email only if provided
+    if (email) {
+      const existingEmail = await User.findOne({ email });
+      if (existingEmail) {
+        return res.status(409).json({ message: "Email already exists!" });
+      }
+    }
+
+    const hash = bcryptjs.hashSync(password, 10);
+
     const _user = new User({
       _id: new mongoose.Types.ObjectId(),
-      firstName,
-      lastName,
-      email,
       userName,
+      phoneNumber,
+      email,
       password: hash,
       confirmPassword: hash,
     });
 
-    // Save the user
     const user = await _user.save();
-
     return res.status(201).json({ user });
   } catch (error) {
     logging.error(NAMESPACE, "Error saving user", error);
     const errorMessage = isErrorWithMessage(error)
       ? error.message
       : "Unknown error occurred";
-    return res.status(500).json({
-      message: errorMessage,
-      error,
-    });
+    return res.status(500).json({ message: errorMessage, error });
   }
 };
 
-// Function to login (token)
+// Function to login user (token)
 const login = async (req: Request, res: Response, next: NextFunction) => {
   const { userName, password } = req.body;
   try {
@@ -275,32 +271,37 @@ const adminSignup = async (req: Request, res: Response, next: NextFunction) => {
     return res.status(422).json(error);
   }
 
-  const { firstName, lastName, email, userName, password, confirmPassword } =
-    value;
+  const { userName, phoneNumber, email, password, confirmPassword } = value;
 
   if (password !== confirmPassword) {
     return res.status(400).json({ message: "Passwords do not match" });
   }
 
   try {
-    const existingEmail = await User.findOne({ email });
-    if (existingEmail) {
-      return res.status(409).json({ message: "Email already exists!" });
-    }
-
     const existingUserName = await User.findOne({ userName });
     if (existingUserName) {
       return res.status(409).json({ message: "Username already exists!" });
+    }
+
+    const existingPhone = await User.findOne({ phoneNumber });
+    if (existingPhone) {
+      return res.status(409).json({ message: "Phone number already in use!" });
+    }
+
+    if (email) {
+      const existingEmail = await User.findOne({ email });
+      if (existingEmail) {
+        return res.status(409).json({ message: "Email already exists!" });
+      }
     }
 
     const hash = bcryptjs.hashSync(password, 10);
 
     const _admin = new User({
       _id: new mongoose.Types.ObjectId(),
-      firstName,
-      lastName,
-      email,
       userName,
+      phoneNumber,
+      email,
       password: hash,
       confirmPassword: hash,
       role: "admin",
@@ -312,7 +313,8 @@ const adminSignup = async (req: Request, res: Response, next: NextFunction) => {
       message: "Admin account created successfully",
       admin: {
         id: admin._id,
-        firstName: admin.firstName,
+        userName: admin.userName,
+        phoneNumber: admin.phoneNumber,
         email: admin.email,
         role: admin.role,
       },
@@ -367,7 +369,8 @@ const adminSignin = async (req: Request, res: Response, next: NextFunction) => {
           token,
           admin: {
             id: user._id,
-            firstName: user.firstName,
+            userName: user.userName,
+            phoneNumber: user.phoneNumber,
             email: user.email,
             role: user.role,
           },
