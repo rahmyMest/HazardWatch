@@ -1,17 +1,27 @@
 {
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "baseUrl": "src",
+    "outDir": "dist",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "target": "ES6",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts", "types/**/*.d.ts", "src/utils/sendEmail.ts"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "transpileOnly": false,
+    "files": true,
     "compilerOptions": {
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext",
-        "baseUrl": "src",
-        "outDir": "dist",
-        "sourceMap": true,
-        "noImplicitAny": true,
-        "target": "ES6",
-        "rootDir": "./src",
-        "strict": true,
-        "esModuleInterop": true,
-        "typeRoots": ["./node_modules/@types", "./types"]
-    },
-    "include": ["src/**/*.ts", "types/**/*.ts", "src/utils/sendEmail.ts"],
-    "exclude": ["node_modules"]
+      "module": "NodeNext",
+      "baseUrl": "src",
+      "typeRoots": ["./node_modules/@types", "./types"]
+    }
+  }
 }
