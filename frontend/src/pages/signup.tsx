@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { apiSignup } from "../services/auth";
 
 const SignUp: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
+  // const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
@@ -29,8 +29,14 @@ const SignUp: React.FC = () => {
         confirmPassword: confirmPassword,
         userName: userName,
       });
-      toast.success("Sign up Successful");
-      navigate("/login");
+      toast.success("Sign up Successful",
+        { position: "top-right",
+          autoClose: 1500,
+        }
+      );
+
+      // slight delay so toast shows before redirect
+      setTimeout(() => navigate("/login"), 1500);
     } catch (error) {
       const axiosError = error as { response?: { data?: { message?: string } | string } };
       let errorMessage = "An error occurred during signup";
