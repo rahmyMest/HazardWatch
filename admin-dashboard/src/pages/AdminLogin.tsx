@@ -20,7 +20,7 @@ const AdminLogin: React.FC = () => {
         return;
       }
 
-      const response = await apiAdminLogin({ userName, password });
+      await apiAdminLogin({ userName, password });
 
       // Navigate only after successful login
       navigate("/admin-dashboard");
