@@ -4,7 +4,7 @@ import bcryptjs from 'bcryptjs';
 import logging from '../config/logging';
 import User from '../models/user';
 import jwt from 'jsonwebtoken';
-import config from 'config/config';
+import config from '../config/config';
 import signJWT from '../functions/signJWT';
 import bcrypt from "bcrypt";
 import { createUserValidator, forgotPasswordValidator, loginValidator, registerValidator, updateUserValidator } from '../validators/user';
@@ -82,22 +82,23 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
           if (error) {
               return res.status(422).json(error);
           }
-        const user = await User.findOne({ userName })
-            .exec();
-                if (!user) {
-                    return res.status(401).json({
-                        message: 'Username not found'
-                    });
-                }
-    
-                const isMatch = bcryptjs.compareSync(value.password, user.password)
-                    if (!isMatch) {
-                        return res.status(401).json({
-                            message: 'Password is incorrect'
-                        });
-                    }
-                    // Sign JWT using the signJWT function
-                    signJWT(user, (signError, token) => {
+        const user = await User.findOne({ userName }).exec();
+        console.log("Login Attempt:", userName, "Found User:", !!user);
+        
+        if (!user) {
+            return res.status(401).json({ message: 'Username not found' });
+        }
+
+        const isMatch = bcryptjs.compareSync(value.password, user.password);
+        console.log("Password Match:", isMatch, "Provided:", value.password);
+        
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Password is incorrect' });
+        }
+        
+        // Sign JWT using the signJWT function
+        signJWT(user, (signError, token) => {
+            console.log("Sign JWT Result:", !!token, signError);
                         if (signError) {
                             return res.status(500).json({
                                 message: isErrorWithMessage(signError) ? signError.message : 'Unknown error occurred',

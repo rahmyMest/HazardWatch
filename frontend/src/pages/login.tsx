@@ -27,7 +27,16 @@ const Login: React.FC = () => {
         navigate(`/${ROUTES.dashboard}`);
       }
     } catch (error) {
-      toast.error("Error logging in. Please check your credentials.");
+      const axiosError = error as { response?: { data?: { message?: string } | string } };
+      let errorMessage = "Error logging in. Please check your credentials.";
+      if (axiosError.response?.data) {
+        if (typeof axiosError.response.data === "string") {
+          errorMessage = axiosError.response.data;
+        } else if (axiosError.response.data.message) {
+          errorMessage = axiosError.response.data.message;
+        }
+      }
+      toast.error(errorMessage);
     }
   };
 

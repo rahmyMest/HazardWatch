@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Load environment variables from .env file
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:1337/defaultDB';
+const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:3001/defaultDB';
 
 
 const MONGO_OPTIONS = {
@@ -14,7 +14,7 @@ const MONGO_OPTIONS = {
 
 
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
-const SERVER_PORT = Number(process.env.SERVER_PORT) || 1337;
+const SERVER_PORT = Number(process.env.SERVER_PORT) || 3001;
 const SERVER_TOKEN_EXPIRETIME = Number(process.env.SERVER_TOKEN_EXPIRETIME) || 3600;
 const SERVER_TOKEN_ISSUER = process.env.SERVER_TOKEN_ISSUER || 'coolIssuer';
 const SERVER_TOKEN_SECRET =
