@@ -5,9 +5,14 @@ import ContentModeration from "./pages/ContentModeration";
 import Announcements from "./pages/Announcements";
 import UserManagement from "./pages/UserManagement";
 import Settings from "./pages/Settings";
+import AdminLogin from "./pages/AdminLogin";
 
 function App() {
     const router = createBrowserRouter([
+      {
+      path: "/admin-login",
+      element: <AdminLogin />,
+    },
        {
         path: "/admin-dashboard",
         element: <DashboardLayout/>,
@@ -40,8 +45,4 @@ function App() {
           element: <Navigate to="/admin-dashboard" replace />
       }
     ]);
-
-    return <RouterProvider router={router} />;
-};
-
 export default App;
