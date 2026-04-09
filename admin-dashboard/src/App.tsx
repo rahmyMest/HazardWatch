@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import { createBrowserRouter, RouterProvider,} from "react-router-dom";
 import DashboardLayout from "./layouts/dashBoardLayout";
 import Dashboard from "./pages/Dashboard";
 import ContentModeration from "./pages/ContentModeration";
@@ -6,6 +6,12 @@ import Announcements from "./pages/Announcements";
 import UserManagement from "./pages/UserManagement";
 import Settings from "./pages/Settings";
 import AdminLogin from "./pages/AdminLogin";
+import ErrorPage from "./errorpage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { DashboardProvider } from "./context/DashboardContext";
+import { Toaster } from "react-hot-toast";
+
+
 
 function App() {
     const router = createBrowserRouter([
@@ -15,7 +21,11 @@ function App() {
     },
        {
         path: "/admin-dashboard",
-        element: <DashboardLayout/>,
+        element: (
+          <ProtectedRoute>
+            <DashboardLayout/>
+          </ProtectedRoute>
+        ),
         children: [
             {
                 index: true,
@@ -40,9 +50,21 @@ function App() {
         ],
       },
       {
-          // Redirect root to dashboard for convenience
-          path: "/",
-          element: <Navigate to="/admin-dashboard" replace />
+          path: "*",
+          element: <ErrorPage />
+      },
+      {
+        path: "/",
+        element: <AdminLogin />
       }
     ]);
+
+    return (
+        <DashboardProvider>
+            <RouterProvider router={router} />
+            <Toaster position="top-right" />
+        </DashboardProvider>
+    );
+};
+
 export default App;
