@@ -344,46 +344,45 @@ const getHazardReportStats = async (
   }
 };
 
-const upvoteHazardReport = async (
+// Function to update report status
+const updateReportStatus = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
     const { id } = req.params;
-    const userId = res.locals.jwt?.id;
+    const { status } = req.body;
 
-    if (!userId) {
-      return res.status(401).json({ message: "Unauthorized" });
+    // Validate status value
+    const allowedStatuses = ["open", "in progress", "resolved"];
+    if (!status || !allowedStatuses.includes(status)) {
+      return res.status(400).json({
+        message: `Invalid status. Allowed values are: ${allowedStatuses.join(", ")}`,
+      });
     }
 
-    const report = await HazardReport.findById(id);
-    if (!report) {
+    // Validate ID format
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid report ID format" });
+    }
+
+    const updatedReport = await HazardReport.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true },
+    ).populate("user", "userName phoneNumber email");
+
+    if (!updatedReport) {
       return res.status(404).json({ message: "Hazard report not found" });
     }
 
-    const userObjectId = new Types.ObjectId(userId);
-    const hasUpvoted = report.upvotedBy.some(
-      (uid) => uid.toString() === userObjectId.toString()
-    );
-
-    if (hasUpvoted) {
-      report.upvotes = Math.max(0, report.upvotes - 1);
-      report.upvotedBy = report.upvotedBy.filter(
-        (uid) => uid.toString() !== userObjectId.toString()
-      );
-    } else {
-      report.upvotes += 1;
-      report.upvotedBy.push(userObjectId);
-    }
-
-    await report.save();
-
     return res.status(200).json({
-      message: hasUpvoted ? "Upvote removed" : "Upvoted",
-      upvotes: report.upvotes,
+      message: "Report status updated successfully",
+      report: updatedReport,
     });
   } catch (error) {
+    console.error("Error updating report status:", error);
     next(error);
   }
 };
@@ -396,5 +395,5 @@ export default {
   getUserHazardCount,
   deleteHazardReport,
   getHazardReportStats,
-  upvoteHazardReport,
+  updateReportStatus,
 };
