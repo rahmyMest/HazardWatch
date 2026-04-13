@@ -185,16 +185,6 @@ git push origin feature/your-feature-name
 
 ---
 
-## 📝 Recent Improvements
-
-- ✅ **Refactored authentication**: Now uses `req.user` pattern (Express convention)
-- ✅ **Swagger API docs**: Interactive documentation at `/api-docs`
-- ✅ **Enhanced authorization**: Proper permission checks in `updateHazardReport`
-- ✅ **Improved CI/CD**: Tests all three services on pull requests
-- ✅ **TypeScript support**: Strict type checking across all services
-
----
-
 ## 📄 License
 
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
