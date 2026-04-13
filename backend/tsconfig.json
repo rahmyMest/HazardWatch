@@ -1,27 +1,28 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "baseUrl": "src",
-    "outDir": "dist",
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "target": "ES6",
+    "target": "ES2020",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "lib": [
+      "ES2020"
+    ],
+    "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
-    "typeRoots": ["./node_modules/@types", "./types"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*.ts", "types/**/*.d.ts", "src/utils/sendEmail.ts"],
-  "exclude": ["node_modules"],
-  "ts-node": {
-    "transpileOnly": false,
-    "files": true,
-    "compilerOptions": {
-      "module": "NodeNext",
-      "baseUrl": "src",
-      "typeRoots": ["./node_modules/@types", "./types"]
-    }
-  }
+  "files": [
+    "src/types/express.d.ts"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

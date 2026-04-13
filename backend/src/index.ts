@@ -4,13 +4,15 @@ import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import mongoose from "mongoose";
+import swaggerUi from "swagger-ui-express";
 import config from "./config/config";
 import logging from "./config/logging";
+import { swaggerSpec } from "./config/swagger";
+import adminRoutes from "./router/admin";
 import hazardReport from "./router/hazardreport";
 import hazardRoutes from "./router/hazardtypes";
 import resetPasswordRoutes from "./router/resetpassword";
 import userRoutes from "./router/user";
-
 dotenv.config();
 
 const NAMESPACE = "Server";
@@ -70,16 +72,29 @@ app.use((req, res, next) => {
   next();
 });
 
+// Swagger documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, { swaggerOptions: { url: "/api-docs.json" } }));
+
+// Root route - redirect to Swagger docs
+app.get("/", (req, res) => {
+  res.redirect("/api-docs");
+});
+
 // Use Route
 
 app.use("/api", userRoutes);
+app.use("/api", adminRoutes);
 app.use("/hazard", hazardRoutes);
 app.use("/hazard-report", hazardReport);
 app.use("/api", resetPasswordRoutes);
+// app.use("/announcement", announcementRoutes);
 
 // Error handling for not found routes
 app.use((req, res, next) => {
   const error = new Error("Not found");
+  res.status(404).json({
+    message: error.message,
+  });
 });
 
 // const httpServer = http.createServer(router);
@@ -87,10 +102,26 @@ app.use((req, res, next) => {
 // httpServer.listen(config.server.port, () => logging.info(NAMESPACE, `Server is running ${config.server.hostname}:${config.server.port}`));
 
 // Listen for incoming requests
-const port = process.env.PORT || 1337;
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
+let port = Number(config.server.port) || 1337;
+
+const startServer = (currentPort: number) => {
+  const server = app.listen(currentPort, () => {
+    console.log(`App listening on port ${currentPort}`);
+  });
+
+  server.on("error", (err: any) => {
+    if (err.code === "EADDRINUSE") {
+      console.log(
+        `Port ${currentPort} is already in use. Trying port ${currentPort + 1}...`,
+      );
+      startServer(currentPort + 1);
+    } else {
+      console.error("Server error:", err);
+    }
+  });
+};
+
+startServer(port);
 
 // Error handling middleware
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
